@@ -1,0 +1,160 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Empêcher le défilement */
+}
+
+.dynamic-background {
+  height: 100vh;
+  background-image: url('../Designer.png'); /* Remplacez par le chemin de votre image */
+  background-size: cover; /* Couvrir toute la dimension de l'écran */
+  background-position: center; /* Centrer l'image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.content {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5); /* Fond transparent */
+  padding: 1rem; /* Réduire le padding */
+  border-radius: 10px;
+  width: 80%; /* Ajuster la largeur pour les petits écrans */
+  max-width: 600px; /* Limiter la largeur maximale */
+}
+
+.logo-container {
+  background-color: rgba(255, 255, 255, 0.8); /* Fond blanc transparent */
+  border-radius: 50%;
+  padding: 0.5rem; /* Réduire le padding */
+  display: inline-block;
+  margin-bottom: 1rem;
+  margin-top: 2%; /* Réduire le margin-top */
+}
+
+.logo {
+  width: 15vw; /* Utiliser des unités relatives */
+  height: 15vw;
+  max-width: 120px; /* Limiter la taille maximale */
+  max-height: 120px;
+  border-radius: 50%;
+}
+
+.content p {
+  font-size: 1rem; /* Réduire la taille de la police */
+  margin-bottom: 1rem; /* Réduire la marge */
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem; /* Réduire l'écart */
+  margin-bottom: 1rem; /* Réduire la marge */
+}
+
+.icons a {
+  color: white;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.icons a:hover {
+  color: #ffd700; /* Or */
+  transform: scale(1.1);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem; /* Réduire l'écart */
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%; /* Réduire la largeur des boutons */
+  padding: 0.5rem; /* Réduire la hauteur des boutons */
+  font-size: 0.8rem; /* Réduire la taille de la police */
+  color: black; /* Changer la couleur du texte */
+  background-color: rgba(211, 211, 211, 0.7); /* Fond gris clair transparent */
+  border: none;
+  border-radius: 20px; /* Bordures arrondies */
+  text-decoration: none;
+  transition: background-color 0.3s, transform 0.3s;
+  font-weight: bold; /* Ajouter du style au texte */
+}
+
+.action-button:hover {
+  background-color: rgba(211, 211, 211, 0.9); /* Augmenter la transparence au survol */
+  transform: scale(1.1);
+}
+
+.paypal-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paypal-logo {
+  margin-right: 0.5rem;
+  height: 20px; /* Ajuster la taille du logo PayPal */
+}
+
+.whatsApp-logo {
+  margin-right: 0.5rem;
+  height: 20px; /* Ajuster la taille du logo WhatsApp */
+}
+
+.whatsapp-text {
+  margin-left: 0.5rem; /* Ajouter un espace entre le texte et l'icône */
+}
+
+.selling-points {
+  margin-top: 1rem; /* Réduire la marge */
+}
+
+.selling-points p {
+  font-size: 1rem; /* Réduire la taille de la police */
+  margin: 0.5rem 0;
+}
+
+.black-bold-link {
+  color: #ffd700; /* Couleur doré */
+  font-weight: bold; /* Texte en gras */
+  text-decoration: none; /* Supprimer la décoration de texte par défaut */
+}
+
+.black-bold-link:hover {
+  text-decoration: underline; /* Ajouter une décoration de texte au survol */
+}
+
+@media (max-width: 600px) {
+  .logo {
+    width: 30vw; /* Ajuster la taille du logo pour mobile */
+    height: 30vw;
+    max-width: 100px; /* Limiter la taille maximale */
+    max-height: 100px;
+  }
+
+  .action-button {
+    width: 90%; /* Ajuster la largeur des boutons pour mobile */
+    padding: 0.5rem; /* Réduire encore la hauteur des boutons pour mobile */
+  }
+}
+
+@media (min-width: 601px) {
+  .logo {
+    width: 15vw; /* Ajuster la taille du logo pour desktop */
+    height: 15vw;
+    max-width: 120px; /* Limiter la taille maximale */
+    max-height: 120px;
+  }
+
+  .action-button {
+    width: 60%; /* Ajuster la largeur des boutons pour desktop */
+    padding: 0.5rem; /* Ajuster la hauteur des boutons pour desktop */
+  }
+}
