@@ -40,7 +40,7 @@ function DynamicBackground() {
           <a href="https://www.chogangroupspa.com/registration_consultant/IKRFB24D1" target="_blank" rel="noopener noreferrer" className="action-button">
           Rejoignez-nous et commencez à bâtir votre propre succès dans la vente de parfums !
           </a>
-          <a href="https://www.paypal.com/paypalme/@ikrambakmou" target="_blank" rel="noopener noreferrer" className="action-button paypal-button">
+          <a href="https://www.paypal.com/paypalme/ikramchogan" target="_blank" rel="noopener noreferrer" className="action-button paypal-button">
             <img src={paypalLogo} alt="PayPal" className="paypal-logo" /> Paiement en direct
           </a>
           <a href="https://wa.me/0663159242" target="_blank" rel="noopener noreferrer" className="action-button whatsapp-button"> {/* Lien vers WhatsApp */}
