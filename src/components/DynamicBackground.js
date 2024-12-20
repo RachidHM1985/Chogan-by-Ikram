@@ -43,8 +43,9 @@ function DynamicBackground() {
           <a href="https://www.paypal.com/paypalme/ikramchogan" target="_blank" rel="noopener noreferrer" className="action-button paypal-button">
             <img src={paypalLogo} alt="PayPal" className="paypal-logo" /> Paiement en direct
           </a>
-          <a href="https://wa.me/0663159242" target="_blank" rel="noopener noreferrer" className="action-button whatsapp-button"> {/* Lien vers WhatsApp */}
-            <img src={whatsapp} alt="WhatsApp" className="whatsApp-logo" /> <span className="whatsapp-text">Contacter moi</span>
+          <a href="https://wa.me/0663159242" target="_blank" rel="noopener noreferrer" className="action-button whatsapp-button">
+              <img src={whatsapp} alt="WhatsApp" className="whatsApp-logo" /> 
+              <span className="whatsapp-text">Contacter moi</span>
           </a>
         </div>
         <div className="selling-points">
