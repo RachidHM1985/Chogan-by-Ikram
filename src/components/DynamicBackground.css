@@ -21,6 +21,7 @@ html, body {
   width: 80%; /* Ajuster la largeur pour les petits écrans */
   max-width: 700px; /* Limiter la largeur maximale */
   margin: auto;
+  margin-top: 0.5rem; /* Réduire la marge supérieure */
 }
 
 .logo-container {
