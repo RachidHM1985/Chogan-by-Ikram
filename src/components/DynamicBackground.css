@@ -9,11 +9,8 @@ html, body {
   background-image: url('../Designer.png'); /* Remplacez par le chemin de votre image */
   background-size: cover; /* Couvrir toute la dimension de l'écran */
   background-position: center; /* Centrer l'image */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; 
   color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .content {
@@ -23,6 +20,7 @@ html, body {
   border-radius: 10px;
   width: 80%; /* Ajuster la largeur pour les petits écrans */
   max-width: 700px; /* Limiter la largeur maximale */
+  margin: auto;
 }
 
 .logo-container {
