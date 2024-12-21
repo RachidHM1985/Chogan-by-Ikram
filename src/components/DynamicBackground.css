@@ -35,10 +35,10 @@ html, body {
 }
 
 .logo {
-  width: 15vw; /* Utiliser des unités relatives */
-  height: 15vw;
-  max-width: 120px; /* Limiter la taille maximale */
-  max-height: 120px;
+  width: 50vw; /* Utiliser des unités relatives */
+  height: 50vw;
+  max-width: 200px; /* Limiter la taille maximale */
+  max-height: 200px;
   border-radius: 50%;
 }
 
@@ -131,6 +131,9 @@ html, body {
   text-decoration: underline; /* Ajouter une décoration de texte au survol */
 }
 
+.email-icon {
+  margin-right: 0.5rem; /* Ajustez la marge selon vos besoins */
+}
 
 @media (min-width: 601px) {
   .logo {
