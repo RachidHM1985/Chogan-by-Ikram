@@ -35,8 +35,8 @@ html, body {
 }
 
 .logo {
-  width: 30vw; /* Utiliser des unités relatives */
-  height: 30vw;
+  width: 25vw; /* Utiliser des unités relatives */
+  height: 25vw;
   max-width: 200px; /* Limiter la taille maximale */
   max-height: 200px;
   border-radius: 50%;
