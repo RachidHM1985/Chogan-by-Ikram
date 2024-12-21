@@ -22,7 +22,7 @@ html, body {
   padding: 1rem; /* Réduire le padding */
   border-radius: 10px;
   width: 80%; /* Ajuster la largeur pour les petits écrans */
-  max-width: 600px; /* Limiter la largeur maximale */
+  max-width: 700px; /* Limiter la largeur maximale */
 }
 
 .logo-container {
@@ -135,7 +135,7 @@ html, body {
   }
 }
 
-  .action-button {
-    width: 80%; /* Ajuster la largeur des boutons pour desktop */
-    padding: 0.5rem; /* Ajuster la hauteur des boutons pour desktop */
-  }
+.action-button {
+  width: 80%; /* Ajuster la largeur des boutons pour desktop */
+  padding: 0.5rem; /* Ajuster la hauteur des boutons pour desktop */
+}

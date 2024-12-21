@@ -5,9 +5,9 @@ import backgroundImage from '../Designer.png';
 import logo from '../By_Ikram_logo.png'; // Importer le logo principal
 import paypalLogo from '../paypal-logo-transparent.png'; // Importer le logo PayPal écrit
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons'; // Importer l'icône WhatsApp
-import { faSnapchat } from '@fortawesome/free-brands-svg-icons/faSnapchat';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faInstagram, faTiktok, faSnapchat } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+
 function DynamicBackground() {
   return (
     <div
@@ -43,16 +43,16 @@ function DynamicBackground() {
         </p>
         <div className="buttons">
           <a href="https://www.chogangroupspa.com/referral/IKRFB24D1/FR" target="_blank" rel="noopener noreferrer" className="action-button">
-          Cliquez ici pour découvrir nos offres exclusives et commander maintenant !
+            Cliquez ici pour découvrir nos offres exclusives et commander maintenant !
           </a>
           <a href="https://www.chogangroupspa.com/registration_consultant/IKRFB24D1" target="_blank" rel="noopener noreferrer" className="action-button">
-          Rejoignez-nous et commencez à bâtir votre propre succès dans la vente de parfums !
+            Rejoignez-nous et commencez à bâtir votre propre succès dans la vente de parfums !
           </a>
           <a href="https://www.paypal.com/paypalme/ikramchogan" target="_blank" rel="noopener noreferrer" className="action-button paypal-button">
             <img src={paypalLogo} alt="PayPal" className="paypal-logo" /> Paiement en direct
           </a>
           <a href="mailto:ikram.bakmou@outlook.fr" target="_blank" rel="noopener noreferrer" className="action-button email-button">
-          <FontAwesomeIcon icon={faEnvelope} size="2x"  className="email-icon" /> 
+            <FontAwesomeIcon icon={faEnvelope} size="2x" className="email-icon" />
             <span className="email-text"> Contacter moi</span>
           </a>
         </div>
@@ -60,7 +60,7 @@ function DynamicBackground() {
           <p>Qualité exceptionnelle</p>
           <p>Livraison rapide</p>
           <p>Service client 24/7</p>
-        </div>        
+        </div>
       </div>
     </div>
   );
