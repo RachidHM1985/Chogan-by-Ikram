@@ -42,7 +42,6 @@ html, body {
   border-radius: 50%;
 }
 
-
 .content p {
   font-size: 1rem; /* Réduire la taille de la police */
   margin-bottom: 1rem; /* Réduire la marge */
@@ -104,18 +103,13 @@ html, body {
   height: 20px; /* Ajuster la taille du logo PayPal */
 }
 
-.whatsApp-logo {
-  margin-right: 0.5rem;
-  height: 35px; /* Ajuster la taille du logo WhatsApp */
-}
-
 .selling-points {
   margin-top: 0.8rem; /* Réduire la marge */
 }
 
 .selling-points p {
   font-size: 0.8rem; /* Réduire la taille de la police */
-  margin: 0.5rem 0;
+  margin: 0.2rem 0;
 }
 
 .black-bold-link {
@@ -142,6 +136,6 @@ html, body {
 }
 
   .action-button {
-    width: 60%; /* Ajuster la largeur des boutons pour desktop */
+    width: 80%; /* Ajuster la largeur des boutons pour desktop */
     padding: 0.5rem; /* Ajuster la hauteur des boutons pour desktop */
   }
