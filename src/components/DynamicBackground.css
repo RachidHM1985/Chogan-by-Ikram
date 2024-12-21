@@ -138,10 +138,10 @@ html, body {
 
 @media (max-width: 600px) {
   .logo {
-    width: 50vw; /* Ajuster la taille du logo pour les petits écrans */
-    height: 50vw;
-    max-width: 300px; /* Limiter la taille maximale */
-    max-height: 300px;
+    width: 30vw; /* Ajuster la taille du logo pour les petits écrans */
+    height: 30vw;
+    max-width: 200px; /* Limiter la taille maximale */
+    max-height: 200px;
   }
 }
 
