@@ -35,8 +35,8 @@ html, body {
 }
 
 .logo {
-  width: 50vw; /* Utiliser des unités relatives */
-  height: 50vw;
+  width: 30vw; /* Utiliser des unités relatives */
+  height: 30vw;
   max-width: 200px; /* Limiter la taille maximale */
   max-height: 200px;
   border-radius: 50%;
@@ -137,10 +137,10 @@ html, body {
 
 @media (min-width: 601px) {
   .logo {
-    width: 15vw; /* Ajuster la taille du logo pour desktop */
-    height: 15vw;
-    max-width: 120px; /* Limiter la taille maximale */
-    max-height: 120px;
+    width: 30vw; /* Ajuster la taille du logo pour desktop */
+    height: 30vw;
+    max-width: 200px; /* Limiter la taille maximale */
+    max-height: 200px;
   }
 
   .action-button {
