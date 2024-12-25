@@ -14,14 +14,23 @@ function DynamicBackground() {
       className="dynamic-background"
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Chogan Parfums</title>
-        <meta name="description" content="Découvrez nos produits exclusifs et suivez-nous sur les réseaux sociaux !" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="keywords" content="cosmétiques, parfums, produits de qualité, grandes marques, change de vie, richesse, luxe" />
-        <link rel="canonical" href="https://www.chogangroupspa.com/referral/IKRFB24D1/FR" />
-      </Helmet>
+    <Helmet>
+    <meta charSet="utf-8" />
+    <title>Chogan Parfums</title>
+    <meta name="description" content="Découvrez nos produits exclusifs et suivez-nous sur les réseaux sociaux !" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="cosmétiques, parfums, produits de qualité, grandes marques, changement de vie, richesse, luxe" />
+    <meta property="og:title" content="Chogan Parfums" />
+    <meta property="og:description" content="Découvrez nos produits exclusifs et suivez-nous sur les réseaux sociaux !" />
+    <meta property="og:image" content={backgroundImage} />
+    <meta property="og:url" content="https://www.chogangroupspa.com/referral/IKRFB24D1/FR" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Chogan Parfums" />
+    <meta name="twitter:description" content="Découvrez nos produits exclusifs et suivez-nous sur les réseaux sociaux !" />
+    <meta name="twitter:image" content={backgroundImage} />
+    <link rel="canonical" href="https://www.chogangroupspa.com/referral/IKRFB24D1/FR" />
+    </Helmet>
       <div className="content">
         <div className="logo-container">
           <img src={logo} alt="Logo" className="logo" />
@@ -53,7 +62,7 @@ function DynamicBackground() {
           </a>
           <a href="mailto:ikram.bakmou@outlook.fr" target="_blank" rel="noopener noreferrer" className="action-button email-button">
             <FontAwesomeIcon icon={faEnvelope} size="2x" className="email-icon" />
-            <span className="email-text"> Contacter moi</span>
+            <span className="email-text"> Contactez-moi</span>
           </a>
         </div>
         <div className="selling-points">
