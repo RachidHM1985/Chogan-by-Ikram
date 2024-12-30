@@ -9,7 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 5001;
 
 // Configurer SendGrid avec la clé API
-sgMail.setApiKey('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');
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 // Middleware pour parser les données JSON
 app.use(express.json());
