@@ -1,15 +1,22 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
-import DynamicBackground from './components/DynamicBackground';
+import DynamicBackground from './components/DynamicBackground.js';
+import SearchParfums from './components/SearchParfums.js'; // Importez le nouveau composant
 import './App.css';
+import './index.css';
 
 function App() {
   return (
-    <div className="App">
-      <DynamicBackground />
-      {/* Autres composants */}
-      <Analytics />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<DynamicBackground />} />
+          <Route path="/search" element={<SearchParfums />} /> {/* Ajoutez la nouvelle route ici */}
+        </Routes>
+        <Analytics />
+      </div>
+    </Router>
   );
 }
 
