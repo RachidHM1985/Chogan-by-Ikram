@@ -1,5 +1,5 @@
 // api/sendEmail.js
-
+require('dotenv').config();  // Charger les variables d'environnement
 const sendGrid = require('@sendgrid/mail');
 
 // Charger la clé API de SendGrid depuis l'environnement Vercel
