@@ -5,6 +5,7 @@ import supabase from './supabaseClient.js';
 import './SearchParfums.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faTrash, faPlus, faMinus, faHome } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function SearchParfums() {
@@ -196,7 +197,7 @@ const handleCloseConfirmation = () => {
   
     // Envoi des données à l'API backend
     try {
-      const response = await fetch('http://localhost:5000/send-email', {
+      const response = await axios.post('/api/sendEmail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
