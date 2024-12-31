@@ -197,7 +197,7 @@ const handleCloseConfirmation = () => {
   
     // Envoi des données à l'API backend
     try {
-      const response = await axios.post('/api/sendEmail', {
+      const response = await axios.post('/api/sendMail', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
