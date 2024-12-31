@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
   // Email à l'utilisateur
   const userMailOptions = {
     to: email,
-    from: 'hachem.rach@gmail.com',  // Utilisez un email validé dans SendGrid
+    from: 'ikram.bakmou@outlook.fr',  // Utilisez un email validé dans SendGrid
     subject: 'Confirmation de votre commande Chogan',
     text: `Bonjour ${prenom} ${name},\n\nMerci pour votre commande ! Voici les détails :\n\n${cart.map(item => `${item.nom_produit} - ${item.size} - ${item.price}€ x ${item.quantity}`).join('\n')}\n\nTotal : ${total}€.\n\nNous allons traiter votre commande et nous reviendrons vers vous pour vous indiquer les modalités de paiement et de livraison.\n\nCordialement,\n\nIkram B.`,
     html: `
