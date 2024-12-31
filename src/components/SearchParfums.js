@@ -204,13 +204,10 @@ const handleCloseConfirmation = () => {
       });
       
   
-      const data = await response.json();
-      if (response.ok) {
+      if (response.status === 200) {
         setShowConfirmation(true);  // Afficher la popup de confirmation
         resetCart();  // Réinitialiser le formulaire
         setShowCart(false);  // Fermer la popup du panier après la confirmation de commande
-      } else {
-        setErrorMessage(data.message || "Une erreur est survenue, veuillez réessayer.");
       }
     } catch (error) {
       console.error("Erreur lors de l'envoi de la commande", error);
