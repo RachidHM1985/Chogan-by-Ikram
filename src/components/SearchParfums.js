@@ -8,7 +8,7 @@ import { faShoppingCart, faTrash, faHome } from '@fortawesome/free-solid-svg-ico
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Filter from './Filter';
-import ProductGrid from './ProductGrid'; // Importer le nouveau composant
+import ProductGrid from './ProductGrid'; // Import the new ProductGrid component
 
 function SearchParfums() {
   const [results, setResults] = useState([]);
@@ -32,8 +32,9 @@ function SearchParfums() {
   const cartRef = useRef();
   const [setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const [marqueFilter, setMarqueFilter] = useState(''); // or default to a specific brand
+  const [marqueFilter, setMarqueFilter] = useState(''); // Default to a specific brand if needed
   
+  // Fetch all parfums from the database when the component mounts
   useEffect(() => {
     const fetchAllParfums = async () => {
       const { data, error } = await supabase.from('parfums').select('*');
@@ -47,6 +48,7 @@ function SearchParfums() {
     fetchAllParfums();
   }, []);
 
+  // Handle search functionality when the user types in the search input
   useEffect(() => {
     const handleSearch = async (value) => {
       const { data, error } = await supabase
@@ -66,17 +68,21 @@ function SearchParfums() {
     }
   }, [query]);
 
+  // Check if the form is valid whenever the user inputs data
   useEffect(() => {
     const { name, prenom, phone, email } = form;
     setIsFormValid(name && prenom && phone && email);
   }, [form]);
 
+  // Autosuggest fetch and clear suggestions
   const onSuggestionsFetchRequested = ({ value }) => {
     setQuery(value);
   };
+  
   const onSuggestionsClearRequested = () => {
     setSuggestions([]);
   };
+  
   const getSuggestionValue = suggestion => suggestion.nom_produit;
   const renderSuggestion = suggestion => <div style={{ display: 'none' }}>{suggestion.nom_produit}</div>;
 
@@ -101,28 +107,29 @@ function SearchParfums() {
   };
 
   const offset = currentPage * itemsPerPage;
-  
-  // Filtrage des résultats avant d'appliquer la pagination
-const filteredResults = results
-.filter(result => (genreFilter ? result.genre === genreFilter : true)) // Filter by genre
-.filter(result => {
-  if (!prixFilter) return true;
-  const [min, max] = prixFilter.split('-').map(Number);
-  const price = Math.min(result.prix_30ml || Infinity, result.prix_50ml || Infinity, result.prix_70ml || Infinity);
-  return price >= min && price <= max;
-}) // Filter by price range
-.filter(result => (marqueFilter ? result.nom_marque === marqueFilter : true)) // Filter by brand
-.sort((a, b) => {
-  if (sortOption === 'price-asc') {
-    return Math.min(a.prix_30ml || Infinity, a.prix_50ml || Infinity, a.prix_70ml || Infinity) - Math.min(b.prix_30ml || Infinity, b.prix_50ml || Infinity, b.prix_70ml || Infinity);
-  } else if (sortOption === 'price-desc') {
-    return Math.min(b.prix_30ml || Infinity, b.prix_50ml || Infinity, b.prix_70ml || Infinity) - Math.min(a.prix_30ml || Infinity, a.prix_50ml || Infinity, a.prix_70ml || Infinity);
-  }
-  return 0;
-}); 
+
+  // Apply filters and sort before applying pagination
+  const filteredResults = results
+    .filter(result => (genreFilter ? result.genre === genreFilter : true)) // Filter by genre
+    .filter(result => {
+      if (!prixFilter) return true;
+      const [min, max] = prixFilter.split('-').map(Number);
+      const price = Math.min(result.prix_30ml || Infinity, result.prix_50ml || Infinity, result.prix_70ml || Infinity);
+      return price >= min && price <= max;
+    }) // Filter by price range
+    .filter(result => (marqueFilter ? result.nom_marque === marqueFilter : true)) // Filter by brand
+    .sort((a, b) => {
+      if (sortOption === 'price-asc') {
+        return Math.min(a.prix_30ml || Infinity, a.prix_50ml || Infinity, a.prix_70ml || Infinity) - Math.min(b.prix_30ml || Infinity, b.prix_50ml || Infinity, b.prix_70ml || Infinity);
+      } else if (sortOption === 'price-desc') {
+        return Math.min(b.prix_30ml || Infinity, b.prix_50ml || Infinity, b.prix_70ml || Infinity) - Math.min(a.prix_30ml || Infinity, a.prix_50ml || Infinity, a.prix_70ml || Infinity);
+      }
+      return 0;
+    });
 
   const currentPageData = filteredResults.slice(offset, offset + itemsPerPage);
 
+  // Add a product to the cart with selected size and quantity
   const addToCart = (product, size, prix) => {
     if (!size) {
       // Gestion de l'erreur si la taille n'est pas sélectionnée
@@ -160,7 +167,6 @@ const filteredResults = results
     // Masquer le message après un délai
     setTimeout(() => setShowTooltip(false), 2000); 
   };
-  
 
   const updateQuantity = (productId, quantity) => {
     setQuantities({ ...quantities, [productId]: Math.max(quantity, 1) });
@@ -246,14 +252,14 @@ const filteredResults = results
         <button onClick={handleRedirectToHome} className="btn-home">
           <FontAwesomeIcon icon={faHome} size="1x" />
         </button>
-       {/* <Filter
+        <Filter
             genreFilter={genreFilter}
             setGenreFilter={setGenreFilter}
             prixFilter={prixFilter}
             setprixFilter={setprixFilter}
             sortOption={sortOption}
             setSortOption={setSortOption}
-        />*/}
+        />
         <div className="modern-search-bar-container">
           <Autosuggest
             suggestions={suggestions}
@@ -294,55 +300,67 @@ const filteredResults = results
           disabledClassName={'pagination__link--disabled cursor-not-allowed opacity-50'}
           activeClassName={'pagination__link--active bg-blue-500 text-white'}
         />
-      )}
-      
+      )}     
       {showCart && (
-        <div className="cart-popup" ref={cartRef}>
-          <h4><strong>Récapitulatif de la commande</strong></h4>
-          <ul>
-            {cart.map((item, index) => (
-              <li key={index}>
-                <span className="lineNomProduit">
-                  <strong>{item.nom_produit} {item.nom_marque}</strong>
-                </span>
-                <span className="lineprixQuantity">- {item.size} - {item.prix}€ x {item.quantity}</span>           
-                <span className="line-total">
-                  {item.prix * item.quantity}€
-                </span>
-                <button className="remove-btn" onClick={() => removeFromCart(index)}>
-                  <FontAwesomeIcon icon={faTrash} />
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className="total">
-            <h3 className="text-lg font-semibold">Total : {calculateTotal()}€</h3>
-            <p>(Les frais de livraison ne sont pas inclus)</p>
-          </div>
-          <form onSubmit={handleSubmit} className="order-form">
-            <h3>Informations nécessaires</h3>
-            <label>
-              <span>Nom <span className="required">*</span></span>
-              <input type="text" name="name" value={form.name} onChange={handleInputChange} required />
-            </label>
-            <label>
-              <span>Prénom <span className="required">*</span></span>
-              <input type="text" name="prenom" value={form.prenom} onChange={handleInputChange} required />
-            </label>
-            <label>
-              <span>Téléphone <span className="required">*</span></span>
-              <input type="tel" name="phone" value={form.phone} onChange={handleInputChange} required />
-            </label>
-            <label>
-              <span>Email <span className="required">*</span></span>
-              <input type="email" name="email" value={form.email} onChange={handleInputChange} required />
-            </label>
-            <button type="submit" className="confirm-order-btn" disabled={!isFormValid}>
-              Confirmer la commande
-            </button>
-          </form>
+  <div className="cart-popup-overlay">
+    <div className="cart-popup" ref={cartRef}>
+      <h4 className="popup-title"><strong>Récapitulatif de la commande</strong></h4>          
+      
+      <div className="cart-items">
+        <ul>
+          {cart.map((item, index) => (
+            <li key={index} className="cart-item">
+              <span className="product-name">
+                <strong>{item.nom_produit} {item.nom_marque}</strong>
+              </span>
+              <span className="cart-popup-details">- {item.size} - {item.prix}€ x {item.quantity}</span>           
+              <span className="item-total">
+                {item.prix * item.quantity}€
+              </span>
+              <button className="remove-btn" onClick={() => removeFromCart(index)}>
+                <FontAwesomeIcon icon={faTrash} />
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
+      
+      <div className="total">
+        <h3 className="total-amount">Total : {calculateTotal()}€</h3>
+        <p>(Les frais de livraison ne sont pas inclus)</p>
+      </div>
+      
+      <form onSubmit={handleSubmit} className="order-form">
+        <h3>Informations nécessaires</h3>
+        
+        <div className="form-group">
+          <label htmlFor="name">Nom <span className="required">*</span></label>
+          <input type="text" id="name" name="name" value={form.name} onChange={handleInputChange} required />
         </div>
-      )}
+        
+        <div className="form-group">
+          <label htmlFor="prenom">Prénom <span className="required">*</span></label>
+          <input type="text" id="prenom" name="prenom" value={form.prenom} onChange={handleInputChange} required />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="phone">Téléphone <span className="required">*</span></label>
+          <input type="tel" id="phone" name="phone" value={form.phone} onChange={handleInputChange} required />
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="email">Email <span className="required">*</span></label>
+          <input type="email" id="email" name="email" value={form.email} onChange={handleInputChange} required />
+        </div>
+        
+        <button type="submit" className="confirm-order-btn" disabled={!isFormValid}>
+          Confirmer la commande
+        </button>
+      </form>
+    </div>
+  </div>
+)}
+
 
       {showConfirmation && (
         <div className="confirmation-popup">
@@ -353,12 +371,11 @@ const filteredResults = results
           </button>
         </div>
       )}
-      
       {showTooltip && (
-  <div className={`tooltip ${!selectedSizes[focusedCard] ? 'tooltip-error' : ''} ${showTooltip ? 'show' : ''}`}>
-    {tooltipMessage}
-  </div>
-)}
+          <div className={`tooltip ${!selectedSizes[focusedCard] ? 'tooltip-error' : 'tooltip-succes'} ${showTooltip ? 'show' : ''}`}>
+          {tooltipMessage}
+        </div>
+      )}
     </div>
   );
 }

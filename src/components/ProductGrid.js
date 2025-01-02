@@ -48,7 +48,7 @@ function ProductGrid({
     const price = selectedSize === '30ml' ? product.prix_30ml : selectedSize === '50ml' ? product.prix_50ml : product.prix_70ml;
 
     if (selectedSize === undefined) {
-      setTooltipMessage('Veuillez sélectionner une contenance!');
+      addToCart(product, selectedSize, price);
       return;
     }
 
@@ -86,7 +86,7 @@ function ProductGrid({
                   <div className="product-details-info">
                     <p>Inspiré de</p>
                     <h2>{product.nom_produit}</h2>
-                    <p>{product.nom_marque}</p>
+                    <h2>{product.nom_marque}</h2>
                     <p>Choisissez une contenance :</p>
                     <div className="size-selection">                     
                       {product.prix_30ml && (
