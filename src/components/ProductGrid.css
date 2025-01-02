@@ -1,224 +1,390 @@
-/* Container pour la grille des produits */
+/* Container des produits */
 .product-grid-container {
+    position: relative;
+    padding: 5px;
+    height: 85%;
+}
+
+/* Grilles pour grands écrans (plus de 1024px) */
+
+@media (min-width: 1024px) {
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr); /* 6 colonnes pour grands écrans */
+        gap: 10px;
+        height: 85%; /* La hauteur est définie à 50% de la hauteur de la fenêtre */
+    }
+
+    .product-card {
+        position: relative;
+        padding: 5px;
+        margin: 5pxh;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        cursor: pointer;
+        box-sizing: border-box;
+        width: 80%;
+        height: 100%;
+    }
+
+    .product-card:hover {
+        transform: scale(1.05);
+    }
+
+    .product-card-image {
+        width: 100%; /* Ajuste la largeur de l'image */
+        height: auto;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+
+    .product-card-content h2 {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .product-card-content p {
+        font-size: 0.9rem;
+        color: #777;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .product-card-content p:first-of-type {
+        font-weight: bold;
+        color: #333;
+    }
+}
+
+/* Grilles pour écrans moyens (768px à 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour écrans moyens */
+        gap: 20px;
+        width: 100%;
+    height: 100%;
+        overflow-x: auto;
+    }
+
+    .product-card {
+        position: relative;
+        padding: 15px;
+        margin: 15px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        cursor: pointer;
+    }
+
+    .product-card-image {
+        width: 40%; /* Image à 40% de la carte */
+        height: auto;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+
+    .product-card-content h2 {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .product-card-content p {
+        font-size: 1.1rem;
+        color: #777;
+        text-align: center;
+    }
+
+    .product-card-content p:first-of-type {
+        font-weight: bold;
+        color: #333;
+    }
+    .tooltip-error {
+        position: absolute;
+        top: -30px; /* Positionne le tooltip au-dessus de l'image */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(255, 0, 0, 0.8);
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        z-index: 1;
+        display: none; /* Caché par défaut */
+      }
+      
+      /* Affichage du tooltip quand il y a une erreur */
+      .tooltip-error.show {
+        display: block;
+      }
+}
+
+/* Grilles pour petits écrans (moins de 768px) */
+@media (max-width: 768px) {
+    .product-grid {
+        display: grid;
+        grid-template-columns: 1fr; /* 1 colonne pour petits écrans */
+        gap: 20px;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto; /* Permet un défilement vertical */
+    }
+
+    .product-card {
+        position: relative;
+        padding: 10px;
+        margin: 10px 0;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        transition: transform 0.3s;
+        cursor: pointer;
+        box-sizing: border-box;
+    }
+
+    .product-card-image {
+        width: 60%; /* L'image occupe 60% de la carte */
+        height: auto;
+        object-fit: contain;
+        margin: 0 auto;
+    }
+
+    .product-card-content h2 {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    .product-card-content p {
+        font-size: 1rem;
+        color: #777;
+        text-align: center;
+    }
+
+    .product-card-content p:first-of-type {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .tooltip-error {
+        position: absolute;
+        top: -30px; /* Positionne le tooltip au-dessus de l'image */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(255, 0, 0, 0.8);
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        z-index: 1;
+        display: none; /* Caché par défaut */
+      }
+      
+      /* Affichage du tooltip quand il y a une erreur */
+      .tooltip-error.show {
+        display: block;
+      }
+}
+
+/* Style de la popup pour les détails de produit */
+.product-details-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Assurez-vous que la popup soit au-dessus du contenu */
+}
+
+.product-details {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 800px;
+    width: 80vh;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 20px;
+    position: relative;
+    overflow-y: auto;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1); /* Ombre légère pour un effet moderne */
+    transition: transform 0.3s ease-in-out;
 }
 
-/* Grille de produits pour les grands écrans */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr); /* 6 colonnes pour les grands écrans */
-    gap: 10px;
-    height: 65vh; /* La hauteur est définie à 65% de la hauteur de la fenêtre */
-}
-
-/* Grille de produits pour les tablettes et petits écrans */
-@media (max-width: 1024px) {
-    .product-grid {
-        grid-template-columns: repeat(4, 1fr); /* 4 colonnes pour les écrans moyens */
-    }
-}
-
-/* Responsivité pour les écrans plus petits */
-@media (max-width: 768px) {
-    .product-grid-container {
-        display: flex;
-        flex-direction: column-reverse;
-        gap: 20px;
-        padding: 20px;
-        flex-wrap: nowrap;
-        align-content: center;
-        align-items: center;
-    }
-
-    /* Grille de produits en 2 colonnes pour les petits écrans */
-    .product-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour les petits écrans */
-        gap: 15px;
-        height: 75vh;
-    }
-
-    /* Ajuster la taille des cartes pour les petits écrans */
-    .product-card {
-        width: 100%; /* Les cartes occupent toute la largeur de leur colonne */
-    }
-
-    /* Ajuster la taille de la police pour les petits écrans */
-    .product-name {
-        font-size: 3vw; /* Réduction de la taille sur les petits écrans */
-    }
-
-    .brand-name {
-        font-size: 3.5vw; /* Réduction de la taille de la marque sur les petits écrans */
-    }
-
-    .add-to-cart {
-        font-size: 4vw; /* Réduction de la taille du bouton sur les petits écrans */
-    }
-}
-
-/* Style pour chaque carte de produit */
-.product-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease;
+.product-details-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
     cursor: pointer;
+    color: #333;
+    background: transparent;
+    border: none;
+    transition: color 0.2s ease;
+}
+
+.product-details-close:hover {
+    color: #ff6f61; /* Couleur au survol */
+}
+
+.product-details-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative; /* Pour permettre de positionner le bouton au bas de la carte */
+    gap: 15px;
 }
 
-.product-card:hover {
-    transform: scale(1.05); /* Légère augmentation au survol */
+.product-details-image {
+    max-width: 90%;
+    border-radius: 10px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
-/* Contenu de la carte produit */
-.product-card-content {
-    padding: 15px;
+.product-details-image:hover {
+    transform: scale(1.05); /* Effet de zoom au survol de l'image */
+}
+
+.product-details-info {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-}
-
-/* Image du produit */
-.product-image {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-.product-image img {
-    width: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-/* Information sur le produit (nom, marque) */
-.product-info {
+    align-items: center;
     text-align: center;
+    width: 100%;
 }
 
-.product-name {
-    font-size: 1vw; /* Taille progressive en fonction de la largeur de l'écran */
+.product-details-info h1 {
+    font-size: 1.8rem;
     font-weight: bold;
-    margin-bottom: 2px;
+    color: #333;
 }
 
-.brand-name {
+.product-details-info h2 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff6f61;
+}
+
+.product-details-info p {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.product-details-info .product-price {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.product-details-info .product-price span {
+    font-size: 1.2rem;
+    text-decoration: line-through;
+    color: #999;
+}
+
+.product-details-info .product-brand {
+    font-size: 1.2rem;
     color: #555;
-    font-size: 1vw; /* Taille progressive pour la marque */
-    margin-bottom: 5px;
+    font-weight: bold;
 }
 
-/* Sélection des tailles */
 .size-selection {
-    font-size: 1.6vh;
-    margin-bottom: 5px;
-}
-
-.size-selection input {
-    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 10vh;
 }
 
 .size-selection label {
-    font-size: 0.9em;
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: bold;
 }
 
-/* Zone pour sélectionner la quantité */
+.size-selection select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.size-selection select:hover,
+.size-selection select:focus {
+    border-color: #ff6f61;
+}
+
 .quantity-input {
-    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
+    gap: 5vh;
+    margin-bottom: 1vh;
 }
 
-/* Style de l'input pour la quantité */
 .quantity-input input {
-    width: 60px; /* Largeur un peu plus grande pour plus de confort */
-    padding: 8px 10px; /* Un peu plus de padding pour un design plus spacieux */
-    font-size: 1rem; /* Taille de police confortable */
-    border: 2px solid #ddd; /* Bordure gris clair */
-    border-radius: 8px; /* Bordures arrondies */
-    transition: all 0.3s ease; /* Transition fluide pour les effets */
-    text-align: center; /* Centrer le texte à l'intérieur */
-    background-color: #f9f9f9; /* Couleur de fond claire */
-}
-
-/* Effet au focus */
-.quantity-input input:focus {
-    border-color: #007bff; /* Changement de couleur de bordure au focus */
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Légère ombre au focus */
-    outline: none; /* Retirer l'outline par défaut */
-}
-
-/* Changement de bordure sur le survol */
-.quantity-input input:hover {
-    border-color: #007bff; /* Couleur de la bordure survolée */
-}
-
-/* Icônes de plus et moins pour augmenter ou diminuer la quantité */
-.quantity-input button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 50%; /* Boutons ronds */
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 60px;
+    padding: 10px;
     font-size: 1.2rem;
-    transition: background-color 0.2s ease;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    transition: border-color 0.3s ease;
 }
 
-/* Couleur au survol des boutons */
-.quantity-input button:hover {
-    background-color: #0056b3; /* Couleur plus foncée au survol */
+.quantity-input input:focus {
+    border-color: #ff6f61;
 }
 
-/* Ajout d'un bouton pour augmenter */
-.quantity-input .increase {
-    background-color: #28a745; /* Bouton vert pour augmenter */
-}
-
-.quantity-input .decrease {
-    background-color: #dc3545; /* Bouton rouge pour diminuer */
-}
-
-/* Boutons vert et rouge au survol */
-.quantity-input .increase:hover {
-    background-color: #218838;
-}
-
-.quantity-input .decrease:hover {
-    background-color: #c82333;
-}
-
-/* Bouton Ajouter au panier */
-.add-to-cart {
-    position: absolute;
-    bottom: 0; /* Fixe le bouton au bas de la carte */
-    left: 0;
-    width: 100%; /* Prend toute la largeur de la carte */
-    height: 15%; /* Hauteur de 15% de la carte */
-    background-color: #ff6600; /* Orange vif */
+.add-to-cart button {
+    background-color: #ff6f61;
     color: white;
+    padding: 15px;
     border: none;
-    font-size: 1.2vw; /* Taille du texte en fonction de la largeur de l'écran */
+    border-radius: 8px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0 0 8px 8px; /* Bordures arrondies uniquement en bas */
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.add-to-cart:hover {
-    background-color: #ff4500; /* Légère variation de couleur au survol */
+.add-to-cart button:hover {
+    background-color: #e54b47;
+    transform: translateY(-2px);
 }
+
+.add-to-cart button:active {
+    transform: translateY(2px); /* Effet de clic */
+}
+
+/* Ajouter un effet dynamique à la popup */
+.product-details-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.product-details-overlay.hide {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+

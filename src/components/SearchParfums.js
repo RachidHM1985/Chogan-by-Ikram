@@ -125,26 +125,42 @@ const filteredResults = results
 
   const addToCart = (product, size, prix) => {
     if (!size) {
+      // Gestion de l'erreur si la taille n'est pas sélectionnée
       setTooltipMessage('Veuillez sélectionner une contenance!');
       setShowTooltip(true);
-      setTimeout(() => setShowTooltip(false), 1000);
+  
+      // Masquer le message après un délai
+      setTimeout(() => setShowTooltip(false), 2000); 
       return;
     }
-
+  
+    // Calculer la quantité par défaut ou utiliser la valeur entrée par l'utilisateur
     const quantity = quantities[product.id] || 1;
+  
+    // Vérifier si le produit existe déjà dans le panier
     const existingProductIndex = cart.findIndex(item => item.id === product.id && item.size === size);
+  
     if (existingProductIndex !== -1) {
+      // Si le produit existe déjà, on met à jour la quantité
       const updatedCart = [...cart];
       updatedCart[existingProductIndex].quantity += quantity;
       setCart(updatedCart);
     } else {
+      // Sinon, on ajoute le nouveau produit au panier
       setCart([...cart, { ...product, size, prix, quantity }]);
     }
-
+  
+    // Réinitialiser la carte sélectionnée après l'ajout
+    setFocusedCard(null); // Réinitialiser l'état de la carte sélectionnée
+    
+    // Message de confirmation de l'ajout au panier
     setTooltipMessage('Article ajouté au panier');
     setShowTooltip(true);
-    setTimeout(() => setShowTooltip(false), 1000);
+  
+    // Masquer le message après un délai
+    setTimeout(() => setShowTooltip(false), 2000); 
   };
+  
 
   const updateQuantity = (productId, quantity) => {
     setQuantities({ ...quantities, [productId]: Math.max(quantity, 1) });
@@ -338,7 +354,11 @@ const filteredResults = results
         </div>
       )}
       
-      {showTooltip && <div className={`tooltip ${!selectedSizes[focusedCard] ? 'tooltip-error' : ''}`}>{tooltipMessage}</div>}
+      {showTooltip && (
+  <div className={`tooltip ${!selectedSizes[focusedCard] ? 'tooltip-error' : ''} ${showTooltip ? 'show' : ''}`}>
+    {tooltipMessage}
+  </div>
+)}
     </div>
   );
 }
