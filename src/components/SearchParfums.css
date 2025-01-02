@@ -104,7 +104,7 @@ body, html {
 .filter-bar-container {
   display: flex;
   gap: 10px; /* Réduit l'espace entre les éléments */
-  padding: 20px 0; /* Ajuste le padding vertical, vous pouvez diminuer les valeurs si nécessaire */
+  padding: 4px 0; /* Ajuste le padding vertical, vous pouvez diminuer les valeurs si nécessaire */
   justify-content: center; /* Centre les éléments verticalement */
   align-items: center; /* Centre les éléments horizontalement */
   flex-wrap: nowrap;
@@ -137,10 +137,11 @@ body, html {
 
 /* Pagination */
 .pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 5px;
-  z-index: 10;
+     /* display: flex
+; */
+justify-content: center;
+/* z-index: 10; */
+top: 93%;
 }
 
 .pagination__link {

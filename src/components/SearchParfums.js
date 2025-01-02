@@ -230,14 +230,14 @@ const filteredResults = results
         <button onClick={handleRedirectToHome} className="btn-home">
           <FontAwesomeIcon icon={faHome} size="1x" />
         </button>
-        <Filter
+       {/* <Filter
             genreFilter={genreFilter}
             setGenreFilter={setGenreFilter}
             prixFilter={prixFilter}
             setprixFilter={setprixFilter}
             sortOption={sortOption}
             setSortOption={setSortOption}
-        />
+        />*/}
         <div className="modern-search-bar-container">
           <Autosuggest
             suggestions={suggestions}
