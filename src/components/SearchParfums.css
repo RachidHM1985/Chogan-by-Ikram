@@ -1,130 +1,150 @@
 body, html {
   height: 100%;
   margin: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4; /* Fond clair pour améliorer la lisibilité */
+  font-family: 'Lora', serif; /* Police élégante et sophistiquée */
+  padding: 0;
+  background-color: #f5f5f5;
 }
 
 .results-display {
-  background-image: url('../Designer_research.png');
+  position: relative; /* Pour positionner la deuxième image par rapport à ce conteneur */
+  background-image: url('../Designer_research.png'); /* Première image de fond */
   background-size: cover;
   background-position: center;
+  background-attachment: fixed;
   min-height: 100vh;
+  max-height: 1000vh;
   padding: 20px;
-  overflow-y: auto; /* Ajout du défilement vertical */
+  overflow-y: auto;
 }
 
-.product-grid {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 15px; /* Ajout d'espace entre les cartes produits */
-}
-
-.product-card {
-  align-content: center;
-  position: relative;
-  width: 100%; /* Largeur par défaut pour mobile */
-  max-width: 250px; /* Largeur maximale pour PC */
-  height: 250px; /* Hauteur fixe */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: 2px;
-  background-color: rgba(128, 128, 128, 0.5); /* Fond transparent gris */
-  opacity: 0.9; /* Légère augmentation de l'opacité pour le contraste */
-  border-radius: 8px; /* Arrondir les bords des cartes produits */
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease; /* Transition plus fluide */
-  z-index: 1;
-}
-
-.product-card::before {
+.results-display::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: auto;
+  background-image: url('../chogan-doree.png');
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  opacity: 0.6; /* Ajuster l'opacité de l'image de fond */
-  z-index: -1;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5); /* Ajout d'une couleur d'arrière-plan semi-transparente */
 }
 
-.product-card:hover {
-  transform: scale(1.05); /* Agrandissement de la carte au survol */
-  opacity: 1; /* Opacité complète sur hover pour une meilleure visibilité */
+.modern-search-bar-container {
+  width: 50%;
 }
 
-.add-to-cart-btn {
-  background-color: #ff6f61;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 0 0 5px 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  text-align: center;
-  transition: transform 0.3s ease-in-out;
-}
-
-.add-to-cart-btn:hover {
-  transform: scale(1.05); /* Effet agrandissement du bouton */
-}
-
-.select-options {
-  display: inline-flex;
-  flex-direction: row;
-  gap: 6px;
-  margin-bottom: 2px;
-  font-size: 0.8rem;
-}
-
-.select-options div {
+.modern-cart-container {
+  position: relative; /* Pour positionner l'icône de recherche */
   display: flex;
+  justify-content: center;
   align-items: center;
-}
-
-.select-options input[type="radio"] {
-  margin-right: 5px;
+  margin: 0 auto; /* Centrer la barre de recherche horizontalement */
 }
 
 .modern-search-bar {
-  width: 50%; /* Augmenter la largeur à 50% */
-  padding: 12px; /* Augmenter le padding pour une plus grande hauteur */
+  width: 50%;
+  padding: 12px 18px;
   border: 2px solid #ccc;
-  border-radius: 5px;
-  font-size: 20px;
+  border-radius: 25px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  color: #333;
   transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .modern-search-bar:focus {
-  border-color: #ff6f61; /* Changement de couleur de la bordure au focus */
+  border-color: #ff6f61; /* Changer la couleur de la bordure au focus */
+  box-shadow: 0 4px 15px rgba(255, 111, 97, 0.5); /* L'ombre devient plus forte lors du focus */
+  outline: none; /* Retirer le contour par défaut */
 }
 
-.product-card h3 {
-  font-size: 0.9rem; /* Légère augmentation de la taille de police */
-  font-weight: bold;
+.modern-search-bar::placeholder {
+  color: #888; /* Couleur du placeholder plus claire */
+  font-style: italic; /* Italique pour un style plus moderne */
 }
 
-.product-card p {
-  font-size: 0.85rem;
+/* Responsivité pour les petits écrans (smartphones, tablettes) */
+@media (max-width: 768px) {
+  .modern-search-bar {
+    width: 85%; /* Ajuster la largeur pour les écrans plus petits */
+    font-size: 12+px; /* Réduire la taille de la police pour une meilleure lisibilité */
+    padding: 12px 15px; /* Ajuster les espacements internes */
+  }
 }
 
-.product-prices span {
-  display: inline-block;
-  margin-right: 10px;
-  font-size: 0.8rem;
+@media (max-width: 480px) {
+  .modern-search-bar {
+    width: 90%; /* La barre occupe presque toute la largeur de l'écran sur les très petits écrans */
+    font-size: 12px; /* Réduire davantage la taille de la police pour les petits écrans */
+    padding: 10px 12px; /* Réduire le padding */
+  }
+}
+
+/* Section de suggestions, styles spécifiques pour l'autosuggestion */
+.autosuggest-container {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 10px;
+  position: relative;
+}
+
+/* Responsiveness pour petits écrans */
+@media (max-width: 768px) {
+
+  .autosuggest-container {
+    width: 100%;
+  }
+
+}
+.filter-bar-container {
+  display: flex;
+  gap: 10px; /* Réduit l'espace entre les éléments */
+  padding: 20px 0; /* Ajuste le padding vertical, vous pouvez diminuer les valeurs si nécessaire */
+  justify-content: center; /* Centre les éléments verticalement */
+  align-items: center; /* Centre les éléments horizontalement */
+  flex-wrap: nowrap;
+}
+
+.modern-search-bar-container {
+  width: 40%;
+}
+
+.modern-search-bar {
+  width: 80%; /* Ajuster la largeur de la barre de recherche */
+  padding: 12px 18px;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Section de suggestions, styles spécifiques pour l'autosuggestion */
+.autosuggest-container {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 10px;
+  position: relative;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  z-index: 10;
 }
 
 .pagination__link {
-  background-color: rgba(234, 226, 226, 0.5);
+  background-color: rgba(21, 12, 12, 0.5);
   color: white;
   padding: 8px 14px;
   border-radius: 5px;
@@ -137,16 +157,12 @@ body, html {
 }
 
 .pagination__link:hover {
-  background-color: rgba(128, 128, 128, 0.8);
+  background-color: rgba(21, 12, 12, 0.5);
 }
 
 .pagination__link--active {
   background-color: #ff6f61;
   color: white;
-}
-
-.pagination__link i {
-  margin-right: 5px;
 }
 
 .pagination__link--disabled {
@@ -158,32 +174,60 @@ body, html {
   font-size: 1.2rem;
 }
 
+/* Titre avec un effet visuel élégant */
+/* Titre avec un effet visuel élégant */
 .marble-text {
-  width: 80%;
-  font-size: 1.2rem;
+  margin-top: 2px;
+  position: relative;
+  font-size: 2rem; /* Taille du texte */
   font-weight: bold;
+  color: #ffffff; /* Couleur du texte modifiée en blanc pour plus de netteté */
   text-align: center;
-  color: #ff6f61;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3), 0 0 5px rgba(255, 215, 0, 0.5);
-  animation: shimmer 2s infinite;
-  filter: brightness(1.1) contrast(1.1);
-  font-family: 'Helvetica Neue', sans-serif;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 10px;
-  border-radius: 10px;
-  display: inline-block;
-  margin: 3px;
+  text-transform: uppercase; /* Mettre en majuscule pour plus de présence */
+  letter-spacing: 2px; /* Espacement entre les lettres */
+  line-height: 1.2;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Ombre pour donner du relief */
+  animation: marbleEffect 5s infinite alternate;
+  background-image: linear-gradient(45deg, #f1c40f, #9b59b6); /* Gradient or et violet pour un effet luxe */
+  background-clip: text; /* Applique le gradient à l'intérieur du texte */
+  -webkit-background-clip: text;
+  color: transparent;
+  transition: all 0.3s ease;
 }
 
-@keyframes shimmer {
+/* Effet de transition au survol du texte */
+.marble-text:hover {
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
+  letter-spacing: 5px;
+}
+
+/* Animation du marbré */
+@keyframes marbleEffect {
   0% {
-    background-position: -100%;
+    background-position: 0 0;
   }
   100% {
-    background-position: 100%;
+    background-position: 100% 100%;
   }
 }
 
+/* Responsivité pour les écrans plus petits */
+@media (max-width: 768px) {
+  .marble-text {
+    font-size: 2.5rem; /* Réduire la taille du texte sur les tablettes */
+    line-height: 1.3;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marble-text {
+    font-size: 1.2rem; /* Réduire encore plus sur les smartphones */
+    letter-spacing: 0px;
+    margin-top: 5px;
+  }
+}
 .quantity-input {
   display: block;
   align-items: center;
@@ -196,25 +240,6 @@ body, html {
   padding: 4px 8px;
   cursor: pointer;
   font-size: 0.7rem;
-}
-
-.quantity-input input {
-  width: 50px;
-  text-align: center;
-  border: 1px solid #ccc;
-  margin: 0 5px;
-  font-size: 1rem;
-}
-
-/* Media Queries pour PC */
-@media (min-width: 768px) {
-  .modern-search-bar {
-    width: 30%;
-  }
-
-  .marble-text {
-    width: 40%;
-  }
 }
 
 /* Style général de la popup */
@@ -349,24 +374,70 @@ body, html {
   right: 10px;
 }
 
-.cart-icon {
-  position: fixed;
-  top: 11%;
-  right: 30%;
-  cursor: pointer;
-  font-size: 2rem;
+/* --- Styles Responsives --- */
+
+/* Style du compteur du panier */
+.cart-icon .cart-count {
+  background-color: #f97316; /* Fond orange vif */
+  color: white;
+  border-radius: 50%; /* Cercle autour du compteur */
+  padding: 2px 6px;
+  font-size: 0.8rem; /* Taille du texte par défaut */
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 18px;
+  min-height: 18px;
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
-.cart-icon .cart-count {
-  background-color: #ff6f61;
-  color: white;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 0.8rem;
-  margin-left: 5px;
+/* Sur mobile (jusqu'à 768px) */
+@media (max-width: 768px) {
+  .cart-icon {
+    font-size: 1.5rem; /* Taille réduite de l'icône */
+    padding: 8px; /* Moins de padding pour s'adapter */
+  }
+
+  .cart-icon .cart-count {
+    font-size: 0.7rem; /* Taille réduite du compteur */
+    padding: 3px 6px; /* Ajuste la taille du compteur */
+    min-width: 16px; /* Taille minimale du compteur */
+    min-height: 16px; /* Taille minimale du compteur */
+  }
 }
+
+/* Sur tablettes et écrans plus grands (à partir de 769px) */
+@media (min-width: 769px) {
+  .cart-icon {
+    font-size: 1.8rem; /* Taille de l'icône augmentée */
+    padding: 12px;
+  }
+
+  .cart-icon .cart-count {
+    font-size: 0.9rem; /* Taille du compteur augmentée */
+    padding: 4px 8px; /* Ajuste la taille du compteur */
+    min-width: 20px; /* Taille minimale du compteur */
+    min-height: 20px; /* Taille minimale du compteur */
+  }
+}
+
+/* Sur très grands écrans (exemple : bureau 1200px et plus) */
+@media (min-width: 1200px) {
+  .cart-icon {
+    font-size: 0.7rem; /* Taille encore plus grande pour de très grands écrans */
+    padding: 15px;
+  }
+
+  .cart-icon .cart-count {
+    font-size: 0.6rem; /* Taille du compteur encore plus grande */
+    padding: 5px 10px; /* Ajuste la taille du compteur */
+    min-width: 24px; /* Taille minimale du compteur */
+    min-height: 24px; /* Taille minimale du compteur */
+  }
+}
+
 
 .remove-btn {
   background: none;
@@ -452,24 +523,23 @@ body, html {
   right: 10px;
 }
 
+/* Style de base pour l'icône du panier */
 .cart-icon {
-  position: fixed;
-  top: 11%;
-  right: 30%;
+  position: relative; /* Positionnement relatif pour permettre de placer le compteur */
+  display: inline-block;
+  font-size: 1.5rem; /* Taille de l'icône */
+  padding: 10px;
+  color: #f97316; /* Couleur de l'icône */
   cursor: pointer;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
+  transition: transform 0.2s ease-in-out; /* Pour une animation fluide */
 }
 
-.cart-icon .cart-count {
-  background-color: #ff6f61;
-  color: white;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 0.8rem;
-  margin-left: 5px;
+/* Ajout d'un effet au survol de l'icône du panier */
+.cart-icon:hover {
+  transform: scale(1.1); /* L'icône augmente légèrement au survol */
 }
+
+
 
 .remove-btn {
   background: none;
@@ -495,19 +565,7 @@ body, html {
   justify-content: center;
 }
 
-.modern-search-bar {
-  width: 100%;
-  padding: 8px;
-  border: 2px solid #ccc;
-  border-radius: 5px;
-  font-size: 15px;
-  transition: all 0.3s ease;
-  margin-left: 95%;
-}
 
-.modern-search-bar:focus {
-  border-color: #ff6f61; /* Changement de couleur de la bordure au focus */
-}
 
 .filters {
   display: flex;
@@ -559,24 +617,65 @@ body, html {
   font-size: 1rem;
   margin-top: 15px;
 }
-
+/* Style de la ligne du produit dans la liste */
 .lineNomProduit {
-  width: 60%;
   font-weight: bold;
+  font-size: 1rem;
 }
 
-.btn-home {
-  position: fixed;
+.lineprixQuantity {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.line-total {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #007bff;
+  margin-top: 5px;
+}
+
+/* Bouton de suppression */
+.remove-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #dc3545;
+  margin-left: 10px;
+}
+
+.remove-btn:hover {
+  color: #c82333;
+}
+
+/* Style pour l'élément li */
+li {
   display: flex;
   align-items: center;
-  background-color: #ff6f61;  /* Vert */
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+
+
+/* Style du bouton home */
+.btn-home { 
+  background-color: #f97316;  /* Couleur de fond du bouton */
   color: white;
-  padding: 7px 7px;
+  padding: 7px 15px; /* Ajuster la taille du bouton */
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 15px;
-  top: 5%;
+  z-index: 1000; /* S'assurer que le bouton soit au-dessus des autres éléments */
 }
+
+/* Optionnel: Ajouter un effet de survol pour améliorer l'interaction */
+.btn-home:hover {
+  background-color: #f97316;  /* Teinte plus sombre pour l'effet de survol */
+}
+
 
 

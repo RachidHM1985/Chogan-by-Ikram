@@ -1,0 +1,100 @@
+/* Pour le bouton qui affiche les filtres */
+.toggle-filters-button {
+    padding: 10px 10px;
+    background-color: #f97316;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    width: auto; /* Assure que la taille du bouton est ajustée selon son contenu */
+}
+
+/* Lorsque le filtre est visible, on superpose l'overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* S'assurer que l'overlay est au-dessus des autres éléments */
+}
+
+/* Style des filtres */
+.filters {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;  /* Réduit la largeur à 100% pour mobile */
+    max-width: 400px; /* Largeur maximale de 400px pour les grands écrans */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;  /* Espace entre les filtres */
+}
+
+/* Filtre par item */
+.filter-item {
+    margin-bottom: 15px;
+}
+
+.filter-item label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Style des select */
+.filter-item select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* --- Styles Responsives --- */
+
+/* Mobile first: ajustements pour les petits écrans */
+@media (max-width: 768px) {
+    .toggle-filters-button {
+        font-size: 12px;
+        padding: 10px 10px;
+        width: 100%; /* Le bouton occupe toute la largeur sur mobile */
+    }
+
+    .filters {
+        width: 90%;  /* Réduit la largeur des filtres sur mobile */
+        padding: 15px;
+    }
+
+    .overlay {
+        align-items: flex-start;  /* Affiche le filtre en haut pour plus de visibilité sur les petits écrans */
+        padding-top: 20px;  /* Légère marge en haut pour les filtres */
+    }
+}
+
+/* Pour les écrans moyens et plus grands (tablettes et PC) */
+@media (min-width: 769px) {
+    .toggle-filters-button {
+        font-size: 12px;
+        padding: 10px 10px
+    }
+
+    .filters {
+        width: 300px;  /* La largeur du filtre sera plus petite sur PC */
+    }
+
+    .overlay {
+        align-items: center;  /* Centrer l'overlay sur les grands écrans */
+    }
+}
+
+/* Sur les très grands écrans (par exemple, les ordinateurs de bureau larges) */
+@media (min-width: 1200px) {
+    .filters {
+        max-width: 500px;  /* Augmenter la largeur maximale sur des écrans très larges */
+    }
+}

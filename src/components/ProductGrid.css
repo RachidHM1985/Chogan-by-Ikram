@@ -1,0 +1,241 @@
+/* Container pour la grille des produits */
+.product-grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Grille de produits pour les grands écrans */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 colonnes pour les grands écrans */
+    gap: 10px;
+    height: 65vh; /* La hauteur est définie à 68% de la hauteur de la fenêtre */
+}
+/* Responsivité pour les écrans plus petits */
+@media (max-width: 768px) {
+    .product-grid {
+        height: 75vh;
+        padding-bottom: 5px;
+    }
+}
+
+/* Style pour chaque carte de produit */
+.product-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; /* Pour permettre de positionner le bouton au bas de la carte */
+}
+
+.product-card:hover {
+    transform: scale(1.05); /* Légère augmentation au survol */
+}
+
+/* Contenu de la carte produit */
+.product-card-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Image du produit */
+.product-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.product-image img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Information sur le produit (nom, marque) */
+.product-info {
+    text-align: center;
+}
+
+.product-name {
+    font-size: 1vw; /* Taille progressive en fonction de la largeur de l'écran */
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.brand-name {
+    color: #555;
+    font-size: 1vw; /* Taille progressive pour la marque */
+    margin-bottom: 5px;
+}
+
+/* Sélection des tailles */
+.size-selection {
+    font-size: 1.6vh;
+    margin-bottom: 5px;
+}
+
+.size-selection input {
+    margin-right: 8px;
+}
+
+.size-selection label {
+    font-size: 0.9em;
+}
+
+/* Zone pour sélectionner la quantité */
+.quantity-input {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Style de l'input pour la quantité */
+.quantity-input input {
+    width: 60px; /* Largeur un peu plus grande pour plus de confort */
+    padding: 8px 10px; /* Un peu plus de padding pour un design plus spacieux */
+    font-size: 1rem; /* Taille de police confortable */
+    border: 2px solid #ddd; /* Bordure gris clair */
+    border-radius: 8px; /* Bordures arrondies */
+    transition: all 0.3s ease; /* Transition fluide pour les effets */
+    text-align: center; /* Centrer le texte à l'intérieur */
+    background-color: #f9f9f9; /* Couleur de fond claire */
+}
+
+/* Effet au focus */
+.quantity-input input:focus {
+    border-color: #007bff; /* Changement de couleur de bordure au focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Légère ombre au focus */
+    outline: none; /* Retirer l'outline par défaut */
+}
+
+/* Changement de bordure sur le survol */
+.quantity-input input:hover {
+    border-color: #007bff; /* Couleur de la bordure survolée */
+}
+
+/* Icônes de plus et moins pour augmenter ou diminuer la quantité */
+.quantity-input button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 50%; /* Boutons ronds */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: background-color 0.2s ease;
+}
+
+/* Couleur au survol des boutons */
+.quantity-input button:hover {
+    background-color: #0056b3; /* Couleur plus foncée au survol */
+}
+
+/* Ajout d'un bouton pour augmenter */
+.quantity-input .increase {
+    background-color: #28a745; /* Bouton vert pour augmenter */
+}
+
+.quantity-input .decrease {
+    background-color: #dc3545; /* Bouton rouge pour diminuer */
+}
+
+/* Boutons vert et rouge au survol */
+.quantity-input .increase:hover {
+    background-color: #218838;
+}
+
+.quantity-input .decrease:hover {
+    background-color: #c82333;
+}
+
+/* Style responsive : ajuster l'input et les boutons pour les petits écrans */
+@media (max-width: 768px) {
+    .quantity-input {
+        gap: 5px; /* Réduire l'espace entre l'input et les boutons */
+    }
+
+    .quantity-input input {
+        width: 60px; /* Réduire la largeur sur petits écrans */
+        font-size: 0.9rem; /* Réduire la taille de la police sur petits écrans */
+    }
+
+    .quantity-input button {
+        padding: 2px; /* Réduire la taille des boutons */
+        font-size: 1rem; /* Réduire la taille de la police sur les boutons */
+    }
+}
+
+/* Bouton Ajouter au panier */
+.add-to-cart {
+    position: absolute;
+    bottom: 0; /* Fixe le bouton au bas de la carte */
+    left: 0;
+    width: 100%; /* Prend toute la largeur de la carte */
+    height: 15%; /* Hauteur de 15% de la carte */
+    background-color: #ff6600; /* Orange vif */
+    color: white;
+    border: none;
+    font-size: 1.2vw; /* Taille du texte en fonction de la largeur de l'écran */
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 8px 8px; /* Bordures arrondies uniquement en bas */
+}
+
+.add-to-cart:hover {
+    background-color: #ff4500; /* Légère variation de couleur au survol */
+}
+
+/* Responsivité : ajuster la grille pour les petits écrans */
+@media (max-width: 768px) {
+    .product-grid-container {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 20px;
+        padding: 20px;
+        flex-wrap: nowrap;
+        align-content: center;
+        align-items: center;
+    }
+
+    /* Grille de produits en 2 colonnes pour les petits écrans */
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 colonnes pour les petits écrans */
+        gap: 15px;
+    }
+
+    /* Ajuster la taille des cartes pour les petits écrans */
+    .product-card {
+        width: 100%; /* Les cartes occupent toute la largeur de leur colonne */
+    }
+
+    /* Ajuster la taille de la police pour les petits écrans */
+    .product-name {
+        font-size: 3vw; /* Réduction de la taille sur les petits écrans */
+    }
+
+    .brand-name {
+        font-size: 3.5vw; /* Réduction de la taille de la marque sur les petits écrans */
+    }
+
+    .add-to-cart {
+        font-size: 4vw; /* Réduction de la taille du bouton sur les petits écrans */
+    }
+}
