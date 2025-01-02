@@ -6,6 +6,8 @@ body, html {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 
 
 .results-display {
@@ -229,6 +231,8 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 
 /* Cart popup styles */
@@ -236,12 +240,12 @@ body, html {
   background-color: white;
   padding: 20px;
   width: 40%;
+  max-height: 1000px;
   min-width: 400px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
-  overflow-y: auto;
-}
+ }
 
 /* Close button styles */
 .remove-btn {
