@@ -12,7 +12,7 @@ const SearchBar = ({ setResults }) => {
     const fetchAllData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:5000/search', {
+        const response = await axios.get('api/search', {
           params: { query: '' }, // Requête vide pour obtenir tous les parfums
         });
 
