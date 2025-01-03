@@ -5,11 +5,9 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 // Récupérer les variables d'environnement
-const supabaseUrl = 'https://dzwzqcwzbprelibrlinq.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR6d3pxY3d6YnByZWxpYnJsaW5xIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUzMDMwOTYsImV4cCI6MjA1MDg3OTA5Nn0.smyNc9XjdbhZUAZhQTnUME1-Qgc-yM9K8y3GuDKlIc8';
+const supabaseUrl = process.env.SUPABASE_ANON_KEY;
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
 const PORT = process.env.PORT || 5000; // Le port peut être défini par une variable d'environnement
-console.log('SUPABASE_URL:', process.env.SUPABASE_URL);
-console.log('SUPABASE_ANON_KEY:', process.env.SUPABASE_ANON_KEY);
 // Vérifier que les variables d'environnement sont définies
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('SUPABASE_URL et SUPABASE_ANON_KEY sont requis');
