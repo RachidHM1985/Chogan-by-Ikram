@@ -5,9 +5,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 // Récupérer les variables d'environnement
-const supabaseUrl = process.env.SUPABASE_ANON_KEY;
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.SUPABASE_URL; // Correct variable for Supabase URL
+const supabaseAnonKey = process.env.SUPABASE_ANON_KEY; // Correct variable for Supabase ANON key
 const PORT = process.env.PORT || 5000; // Le port peut être défini par une variable d'environnement
+
 // Vérifier que les variables d'environnement sont définies
 if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('SUPABASE_URL et SUPABASE_ANON_KEY sont requis');
@@ -50,7 +51,6 @@ app.get('/search', async (req, res) => {
     res.status(500).json({ error: 'Erreur interne du serveur' });
   }
 });
-
 
 // Démarrer le serveur
 app.listen(PORT, () => {
