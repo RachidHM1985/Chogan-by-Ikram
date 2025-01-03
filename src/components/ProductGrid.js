@@ -10,7 +10,6 @@ function ProductGrid({
   updateQuantity,
   addToCart,
   selectedSizes,
-  setTooltipMessage
 }) {
   const [currentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
@@ -64,6 +63,11 @@ function ProductGrid({
     if (e.target.classList.contains('product-details-overlay')) {
       setFocusedCard(null); // Ferme la vue détaillée
     }
+  };
+
+  const getPrice = (product) => {
+    const price = product.prix_30ml || product.prix_50ml || product.prix_70ml;
+    return price ? price.toFixed(2) : "N/A";
   };
 
   return (
@@ -165,18 +169,17 @@ function ProductGrid({
             >
               {/* Vérifiez si l'URL de l'image est valide */}
               <img
-  src={product.photo_url || "/default-image.jpg"} 
-  alt={product.nom_produit}
-  className="product-card-image"
-  onError={(e) => e.target.src = "/default-image.jpg"}  // Utiliser une image par défaut si l'URL est invalide
-/>
+                src={product.photo_url || "/default-image.jpg"} 
+                alt={product.nom_produit}
+                className="product-card-image"
+                onError={(e) => e.target.src = "/default-image.jpg"}  // Utiliser une image par défaut si l'URL est invalide
+                />
 
               <div className="product-card-content">
-              <p>Inspiré de</p>
-                <h2>{product.nom_produit}</h2>
-                <p>{product.nom_marque}</p>
-                <p>À partir de {product.prix_30ml ? product.prix_30ml.toFixed(2) : 'N/A'}€</p>
-              </div>
+                <p>Inspiré de</p>
+                <h1><strong>{product.nom_produit}</strong></h1>
+                <h2><strong>{product.nom_marque}</strong></h2>
+                À partir de {getPrice(product)}€</div>
             </div>
           ))}
         </div>

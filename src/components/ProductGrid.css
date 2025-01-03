@@ -29,6 +29,7 @@ justify-self: center;
         box-sizing: border-box;
         width: 80%;
         max-height:300px;
+        opacity: 0.9;
     }
 
     .product-card:hover {
@@ -36,7 +37,7 @@ justify-self: center;
     }
 
     .product-card-image {
-        width: 100%; /* Ajuste la largeur de l'image */
+        width: 78%; /* Ajuste la largeur de l'image */
         height: auto;
         object-fit: contain;
         margin: 0 auto;
@@ -214,7 +215,7 @@ justify-self: center;
 }
 
 .product-details {
-    background-color: #fff;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 12px;
     max-width: 800px;
@@ -252,7 +253,7 @@ justify-self: center;
 }
 
 .product-details-image {
-    max-width: 90%;
+    max-width: 60%;
     border-radius: 10px;
     object-fit: contain;
     transition: transform 0.3s ease;

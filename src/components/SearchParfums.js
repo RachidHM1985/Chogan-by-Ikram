@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Autosuggest from 'react-autosuggest';
 import ReactPaginate from 'react-paginate';
-import supabase from './supabaseClient.js';
 import './SearchParfums.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faTrash, faHome } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Filter from './Filter';
-import ProductGrid from './ProductGrid'; // Import the new ProductGrid component
+import ProductGrid from './ProductGrid';
+import SearchBar from './SearchBar';  // Importer SearchBar
 
 function SearchParfums() {
   const [results, setResults] = useState([]);
-  const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
@@ -26,77 +23,56 @@ function SearchParfums() {
   const [tooltipMessage, setTooltipMessage] = useState('');
   const [selectedSizes, setSelectedSizes] = useState({});
   const [genreFilter, setGenreFilter] = useState('');
-  const [prixFilter, setprixFilter] = useState('');
+  const [prixFilter, setPrixFilter] = useState('');
+  const [marqueFilter, setMarqueFilter] = useState('');
   const [sortOption, setSortOption] = useState('');
   const itemsPerPage = 12;
   const cartRef = useRef();
-  const [setErrorMessage] = useState('');
+  const [errorMessage,setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const [marqueFilter, setMarqueFilter] = useState(''); // Default to a specific brand if needed
+
+
+  const formFields = [
+    {
+      name: 'name',
+      label: 'Nom',
+      type: 'text',
+      required: true,
+      validation: (value) => value !== '',
+      errorMessage: 'Veuillez entrer votre nom.',
+    },
+    {
+      name: 'prenom',
+      label: 'Prénom',
+      type: 'text',
+      required: true,
+      validation: (value) => value !== '',
+      errorMessage: 'Veuillez entrer votre prénom.',
+    },
+    {
+      name: 'phone',
+      label: 'Téléphone',
+      type: 'tel',
+      required: true,
+      validation: (value) => /^\+?[0-9]\d{1,14}$/.test(value),
+      errorMessage: 'Numéro de téléphone invalide.',
+    },
+    {
+      name: 'email',
+      label: 'Email',
+      type: 'email',
+      required: true,
+      validation: (value) => /\S+@\S+\.\S+/.test(value),
+      errorMessage: 'Email invalide.',
+    },
+  ];
+
   
-  // Fetch all parfums from the database when the component mounts
-  useEffect(() => {
-    const fetchAllParfums = async () => {
-      const { data, error } = await supabase.from('parfums').select('*');
-      if (error) {
-        console.error('Erreur lors de la recherche:', error);
-      } else {
-        setResults(data);
-        setSuggestions(data);
-      }
-    };
-    fetchAllParfums();
-  }, []);
-
-  // Handle search functionality when the user types in the search input
-  useEffect(() => {
-    const handleSearch = async (value) => {
-      const { data, error } = await supabase
-        .from('parfums')
-        .select('*')
-        .or(`nom_produit.ilike.%${value}%,code.ilike.%${value}%,genre.ilike.%${value}%,nom_marque.ilike.%${value}%`);
-      if (error) {
-        console.error('Erreur lors de la recherche:', error);
-      } else {
-        setResults(data);
-        setSuggestions(data);
-      }
-    };
-
-    if (query) {
-      handleSearch(query);
-    }
-  }, [query]);
-
-  // Check if the form is valid whenever the user inputs data
-  useEffect(() => {
-    const { name, prenom, phone, email } = form;
-    setIsFormValid(name && prenom && phone && email);
-  }, [form]);
-
-  // Autosuggest fetch and clear suggestions
-  const onSuggestionsFetchRequested = ({ value }) => {
-    setQuery(value);
-  };
-  
-  const onSuggestionsClearRequested = () => {
-    setSuggestions([]);
-  };
-  
-  const getSuggestionValue = suggestion => suggestion.nom_produit;
-  const renderSuggestion = suggestion => <div style={{ display: 'none' }}>{suggestion.nom_produit}</div>;
-
-  const inputProps = {
-    placeholder: 'Entrez votre recherche...',
-    value: query,
-    onChange: (event, { newValue }) => setQuery(newValue),
-    className: 'modern-search-bar'
-  };
-
+  // Filtered and sorted results
+  const offset = currentPage * itemsPerPage;
   const handlePageClick = (data) => {
     setCurrentPage(data.selected);
   };
-
   const resetCart = () => {
     setCart([]);
   };
@@ -105,8 +81,6 @@ function SearchParfums() {
     setShowConfirmation(false);
     resetCart();
   };
-
-  const offset = currentPage * itemsPerPage;
 
   // Apply filters and sort before applying pagination
   const filteredResults = results
@@ -127,10 +101,10 @@ function SearchParfums() {
       return 0;
     });
 
-  const currentPageData = filteredResults.slice(offset, offset + itemsPerPage);
+    const currentPageData = filteredResults.slice(offset, offset + itemsPerPage);
 
-  // Add a product to the cart with selected size and quantity
-  const addToCart = (product, size, prix) => {
+   // Add a product to the cart with selected size and quantity
+   const addToCart = (product, size, prix) => {
     if (!size) {
       // Gestion de l'erreur si la taille n'est pas sélectionnée
       setTooltipMessage('Veuillez sélectionner une contenance!');
@@ -186,15 +160,25 @@ function SearchParfums() {
     setCart(cart.filter((_, i) => i !== index));
   };
 
-  const handleInputChange = (e) => {
+  const handleInputFormChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
+  // Vérification de la validité du formulaire
+  useEffect(() => {
+    const isValid = formFields.every((field) => {
+      const value = form[field.name];
+      return field.validation(value);
+    });
+    setIsFormValid(isValid);
+  }, [form]);
+
+  // Soumettre le formulaire
+   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.name || !form.prenom || !form.phone || !form.email) {
+    if (!isFormValid) {
       setErrorMessage("Tous les champs obligatoires doivent être renseignés.");
       return;
     }
@@ -241,41 +225,27 @@ function SearchParfums() {
     setSelectedSizes({ ...selectedSizes, [productId]: size });
   };
 
-  const handleRedirectToHome = () => {
-    navigate('/');
-  };
-
   return (
     <div className="results-display">
       <h2 className="marble-text">Recherchez le Parfum de Vos Rêves</h2>
       <div className="filter-bar-container">
-        <button onClick={handleRedirectToHome} className="btn-home">
+        <button onClick={() => navigate('/')} className="btn-home">
           <FontAwesomeIcon icon={faHome} size="1x" />
         </button>
         <Filter
-            genreFilter={genreFilter}
-            setGenreFilter={setGenreFilter}
-            prixFilter={prixFilter}
-            setprixFilter={setprixFilter}
-            sortOption={sortOption}
-            setSortOption={setSortOption}
+          genreFilter={genreFilter}
+          setGenreFilter={setGenreFilter}
+          prixFilter={prixFilter}
+          setprixFilter={setPrixFilter}
+          sortOption={sortOption}
+          setSortOption={setSortOption}
         />
-        <div className="modern-search-bar-container">
-          <Autosuggest
-            suggestions={suggestions}
-            onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={onSuggestionsClearRequested}
-            getSuggestionValue={getSuggestionValue}
-            renderSuggestion={renderSuggestion}
-            inputProps={inputProps}
-          />
-        </div>
+          <SearchBar setResults={setResults} />        
         <div className="cart-icon" onClick={handleCheckout}>
           <FontAwesomeIcon icon={faShoppingCart} />
           <span className="cart-count">{cart.length}</span>
         </div>
       </div>
-
       <ProductGrid
         currentPageData={currentPageData}
         focusedCard={focusedCard}
@@ -300,68 +270,89 @@ function SearchParfums() {
           disabledClassName={'pagination__link--disabled cursor-not-allowed opacity-50'}
           activeClassName={'pagination__link--active bg-blue-500 text-white'}
         />
-      )}     
+      )}
       {showCart && (
-  <div className="cart-popup-overlay">
-    <div className="cart-popup" ref={cartRef}>
-      <h4 className="popup-title"><strong>Récapitulatif de la commande</strong></h4>          
-      
-      <div className="cart-items">
-        <ul>
-          {cart.map((item, index) => (
-            <li key={index} className="cart-item">
-              <span className="product-name">
-                <strong>{item.nom_produit} {item.nom_marque}</strong>
-              </span>
-              <span className="cart-popup-details">- {item.size} - {item.prix}€ x {item.quantity}</span>           
-              <span className="item-total">
-                {item.prix * item.quantity}€
-              </span>
-              <button className="remove-btn" onClick={() => removeFromCart(index)}>
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
-      
-      <div className="total">
-        <h3 className="total-amount">Total : {calculateTotal()}€</h3>
-        <p>(Les frais de livraison ne sont pas inclus)</p>
-      </div>
-      
-      <form onSubmit={handleSubmit} className="order-form">
-        <h3>Informations nécessaires</h3>
-        
-        <div className="form-group">
-          <label htmlFor="name">Nom <span className="required">*</span></label>
-          <input type="text" id="name" name="name" value={form.name} onChange={handleInputChange} required />
+        <div className="cart-popup-overlay">
+          <div className="cart-popup" ref={cartRef}>
+            <h4 className="popup-title"><strong>Récapitulatif de la commande</strong></h4>        
+            
+            <div className="cart-items">
+            <ul>
+              {cart.map((item, index) => (
+                <li key={index} className="cart-item">
+                  <div className="cart-item-details">
+                    <span className="product-name">
+                      <strong>{item.nom_produit} - {item.nom_marque}</strong>
+                    </span>
+                    <span className="cart-popup-details">- {item.size} - {item.prix}€ x {item.quantity}</span>
+                    <span className="item-total">{item.prix * item.quantity}€</span>
+                  </div>
+                  <button className="remove-btn" onClick={() => removeFromCart(index)}>
+                    <FontAwesomeIcon icon={faTrash} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>            
+            <div className="total">
+              <h3 className="total-amount">Total : {calculateTotal()}€</h3>
+              <p>(Les frais de livraison ne sont pas inclus)</p>
+            </div>
+            <div>
+            <form onSubmit={handleSubmit}>
+  {formFields.map((field, index) => (
+    <div key={field.name} className="form-group">
+      {/* Vérifiez si l'index est pair ou impair pour diviser en 2 inputs par ligne */}
+      {index % 2 === 0 && (
+        <div className="form-row">
+          <div className="input-container">
+            <label htmlFor={formFields[index].name}>
+              {formFields[index].label} <span className="required">*</span>
+            </label>
+            <input
+              type={formFields[index].type}
+              id={formFields[index].name}
+              name={formFields[index].name}
+              value={form[formFields[index].name]}
+              onChange={handleInputFormChange}
+              required={formFields[index].required}
+            />
+            {!formFields[index].validation(form[formFields[index].name]) && form[formFields[index].name] !== '' && (
+              <div className="error-message">{formFields[index].errorMessage}</div>
+            )}
+          </div>
+          {formFields[index + 1] && (
+            <div className="input-container">
+              <label htmlFor={formFields[index + 1].name}>
+                {formFields[index + 1].label} <span className="required">*</span>
+              </label>
+              <input
+                type={formFields[index + 1].type}
+                id={formFields[index + 1].name}
+                name={formFields[index + 1].name}
+                value={form[formFields[index + 1].name]}
+                onChange={handleInputFormChange}
+                required={formFields[index + 1].required}
+              />
+              {!formFields[index + 1].validation(form[formFields[index + 1].name]) && form[formFields[index + 1].name] !== '' && (
+                <div className="error-message">{formFields[index + 1].errorMessage}</div>
+              )}
+            </div>
+          )}
         </div>
-        
-        <div className="form-group">
-          <label htmlFor="prenom">Prénom <span className="required">*</span></label>
-          <input type="text" id="prenom" name="prenom" value={form.prenom} onChange={handleInputChange} required />
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="phone">Téléphone <span className="required">*</span></label>
-          <input type="tel" id="phone" name="phone" value={form.phone} onChange={handleInputChange} required />
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="email">Email <span className="required">*</span></label>
-          <input type="email" id="email" name="email" value={form.email} onChange={handleInputChange} required />
-        </div>
-        
-        <button type="submit" className="confirm-order-btn" disabled={!isFormValid}>
-          Confirmer la commande
-        </button>
-      </form>
+      )}
     </div>
-  </div>
+  ))}
+  <button type="submit" disabled={!isFormValid} className="submit-btn">
+    Confirmer la commande
+  </button>
+</form>
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+            </div>
+            
+          </div>
+          </div>
 )}
-
-
       {showConfirmation && (
         <div className="confirmation-popup">
           <h2>Merci pour votre commande !</h2>

@@ -1,182 +1,24 @@
 /* --- Styles de base pour le corps et la structure globale --- */
 body, html {
   font-family: 'Lora', serif;
-  background-color: #f5f5f5;  
+  background-color: #f5f5f5;
   background-image: url('../Designer_research.png');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
   overflow-y: auto;
   scroll-behavior: smooth;
+}
 
-
+/* --- Structure générale des résultats --- */
 .results-display {
   position: absolute; 
   height: 95%;
-  padding: 15px;  
+  padding: 15px;
+  display: contents;
 }
 
-.results-display::after {
-  content: "";
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 150px;
-  height: auto;
-  background-image: url('../chogan-doree.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  z-index: 2;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* Style du bouton home */
-.btn-home { 
-  background-color: #f97316;  /* Couleur de fond du bouton */
-  background-attachment: fixed;
-  color: white;
-  padding: 7px 15px; /* Ajuster la taille du bouton */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 15px;
-}
-
-/* Optionnel: Ajouter un effet de survol pour améliorer l'interaction */
-.btn-home:hover {
-  background-color: #f97316;  /* Teinte plus sombre pour l'effet de survol */
-}
-
-/* --- Styles de la barre de recherche --- */
-.modern-search-bar-container {
-  position: static;
-  width: 30%;
-}
-
-.modern-cart-container {
-  position: relative; /* Pour positionner l'icône de recherche */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto; /* Centrer la barre de recherche horizontalement */
-}
-
-.modern-search-bar {
-  width: 100%;
-  padding: 12px 18px;
-  border: 2px solid #ccc;
-  border-radius: 25px;
-  font-size: 14px;
-  background-color: #f9f9f9;
-  color: #333;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.modern-search-bar:focus {
-  border-color: #ff6f61;
-  box-shadow: 0 4px 15px rgba(255, 111, 97, 0.5);
-  outline: none;
-}
-
-.modern-search-bar::placeholder {
-  color: #888;
-  font-style: italic;
-}
-
-/* --- Responsivité pour la barre de recherche --- */
-@media (max-width: 480px) {
-  .modern-search-bar-container {
-    width: 90%;
-  }
-
-  .modern-search-bar {
-    width: 100%;
-    font-size: 12px;
-    padding: 10px 12px;
-  }
-  .cart-popup{
-    width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .modern-search-bar-container {
-    width: 80%;
-  }
-
-  .modern-search-bar {
-    font-size: 13px;
-    padding: 12px 15px;
-  }
-  .cart-popup{
-    width: 70%;
-  }
-}
-
-.filter-bar-container {
-  display: flex;
-  gap: 2vh; /* Réduit l'espace entre les éléments */
-  padding: 4px 0; /* Ajuste le padding vertical, vous pouvez diminuer les valeurs si nécessaire */
-  justify-content: center; /* Centre les éléments verticalement */
-  align-items: center; /* Centre les éléments horizontalement */
-  flex-wrap: nowrap;
-
-}
-
-
-/* --- Section de suggestions --- */
-.autosuggest-container {
-  width: 100%;
-  max-width: 400px;
-  margin-top: 10px;
-  position: relative;
-}
-
-/* --- Pagination --- */
-.pagination {
-  padding:5px;
-  justify-content: center;
-  align-content: center;
-  border: 20%;
-  width: 100%;
-  position: absolute;
-}
-
-.pagination__link {
-  background-color: rgba(21, 12, 12, 0.5);
-  color: white;
-  padding: 8px 14px;
-  border-radius: 5px;
-  margin: 0 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
-  font-size: 1em;
-}
-
-.pagination__link:hover {
-  background-color: rgba(21, 12, 12, 0.5);
-}
-
-.pagination__link--active {
-  background-color: #ff6f61;
-  color: white;
-}
-
-.pagination__link--disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.pagination__link svg {
-  font-size: 1.2rem;
-}
-
-/* --- Titre avec effet marbré --- */
+/* --- Effet marbré du titre --- */
 .marble-text {
   font-size: 2rem;
   font-weight: bold;
@@ -209,33 +51,45 @@ body, html {
   letter-spacing: 5px;
 }
 
-/* --- Section Quantité dans le panier --- */
-.quantity-input button {
-  background-color: #ff6f61;
-  color: white;
-  border: none;
-  padding: 4px 8px;
-  cursor: pointer;
-  font-size: 0.7rem;
+/* --- Barre de filtre --- */
+.filter-bar-container {
+  display: flex;
+  gap: 2vh;
+  padding: 4px 0;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
-/* --- Pop-up du panier --- *//* Overlay styles */
+/* --- Bouton d'accueil --- */
+.btn-home {
+  background-color: #f97316;
+  color: white;
+  padding: 7px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn-home:hover {
+  background-color: #e66b0f;
+}
+
+/* --- Pop-up du panier --- */
 .cart-popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black overlay */
-  z-index: 1000; /* Ensure it's above other content */
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-y: auto;
-  scroll-behavior: smooth;
 }
 
-/* Cart popup styles */
 .cart-popup {
   background-color: white;
   padding: 20px;
@@ -245,43 +99,58 @@ body, html {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
- }
-
-/* Close button styles */
-.remove-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #d9534f;
 }
 
-.cart-popup-details {
-justify-items: center;
+.cart-popup h4 {
+  text-align: center;
+  font-weight: bold;
+}
+
+.cart-items {
+  max-height: 300px;  /* Limite la hauteur des articles */
+  overflow-y: auto;
 }
 
 .cart-items ul {
-  list-style-type: none;
+  list-style-type: none; /* Supprimer les puces des éléments de la liste */
   padding: 0;
+  margin: 0; 
 }
 
 .cart-item {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  justify-content: space-between; /* Crée un espacement égal entre les éléments */
+  align-items: center; /* Aligne les éléments verticalement au centre */
+  margin-bottom: 15px; /* Marge inférieure entre chaque ligne d'élément */
+  border-bottom: 1px solid #ddd; /* Ligne de séparation sous chaque élément */
+  padding-bottom: 10px; /* Espacement sous chaque ligne pour l'esthétique */  
 }
 
-.cart-item .product-name {
-  font-weight: bold;
+.cart-item-details {
+  display: flex;
+  gap: 10px; /* Espacement entre les éléments à l'intérieur de la ligne */
+  flex: 1; /* Permet à l'élément contenant les détails de prendre tout l'espace disponible */
 }
 
-.cart-item .product-details,
-.cart-item .item-total {
+.product-name {
+  width: 50%;
+  font-weight: lighter;
+}
+
+.popup-title{
+  margin: 10px;
+  font-size: 1.1rem; 
+}
+
+.cart-popup-details {
   font-size: 0.9rem;
+  color: #555;
+  width: 30%;
 }
 
-.total {
-  margin-top: 20px;
+.item-total {
+  font-weight: bold;
+  color: #f97316; /* Couleur orange pour le total, ajustable */
 }
 
 .total-amount {
@@ -289,48 +158,72 @@ justify-items: center;
   font-weight: bold;
 }
 
-.confirm-order-btn {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #28a745;
-  color: white;
+.remove-btn {
+  width: 20%;
+  background: none;
   border: none;
-  font-size: 1rem;
   cursor: pointer;
-  width: 100%;
-  border-radius: 5px;
+  color: #ff4747; /* Couleur rouge pour le bouton de suppression */
 }
 
-.confirm-order-btn:disabled {
-  background-color: #6c757d;
-  cursor: not-allowed;
+.remove-btn:hover {
+  color: #e00000; /* Changement de couleur au survol */
 }
 
+/* --- Formulaire de commande --- */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-.form-group label {
-  display: block;
-  font-weight: bold;
+.form-row {
+  display: flex;
+  flex-wrap: wrap;  /* Permet aux éléments de se placer sur la ligne suivante si nécessaire */
+  gap: 20px; /* Espace entre les champs */
 }
 
-.form-group input {
-  width: 100%;
-  padding: 8px;
+.input-container {
+  flex: 1 1 48%;  /* Chaque champ occupe 48% de la largeur du conteneur */
+}
+
+input {
+  width: 100%;  /* Assurez-vous que les inputs remplissent toute la largeur disponible */
   margin-top: 5px;
   border: 1px solid #ccc;
+  padding: 8px;
   border-radius: 4px;
 }
 
-.required {
+.error-message {
   color: red;
+  font-size: 12px;
 }
 
-.popup-title {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #f97316;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
+
+.submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+@media (max-width: 600px) {
+  .form-row {
+    flex-direction: column;  /* Aligne les champs verticalement sur les petits écrans */
+  }
+
+  .input-container {
+    min-width: 100%;  /* Chaque champ prend la largeur totale disponible */
+    margin-bottom: 10px; /* Espacement entre les champs empilés */
+  }
+
+}
+
 
 /* --- Pop-up de confirmation de commande --- */
 .confirmation-popup {
@@ -368,7 +261,100 @@ justify-items: center;
   margin-top: 15px;
 }
 
-/* --- Style des boutons --- */
+/* --- Pagination --- */
+.pagination {
+  padding: 5px;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+}
+
+.pagination__link {
+  background-color: rgba(21, 12, 12, 0.5);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  font-size: 1em;
+}
+
+.pagination__link:hover {
+  background-color: rgba(21, 12, 12, 0.5);
+}
+
+.pagination__link--active {
+  background-color: #ff6f61;
+  color: white;
+}
+
+.pagination__link--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* --- Tooltip --- */
+.tooltip {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: #ff6f61;
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s linear;
+}
+
+.tooltip.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-error {
+  background-color: #d9534f;
+  z-index: 1000;
+}
+
+.tooltip-succes {
+  background-color: #28a745;
+}
+
+/* --- Icone du panier --- */
+.cart-icon {
+  position: relative;
+  display: inline-block;
+  font-size: 1.5rem;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.cart-icon:hover {
+  color: #ff6f61;
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #ff6f61;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  padding: 3px 7px;
+}
+
+
+
 .view-cart-btn {
   background-color: #ff6f61;
   color: white;
@@ -381,94 +367,4 @@ justify-items: center;
   position: fixed;
   top: 10px;
   right: 10px;
-}
-
-.cart-icon {
-  position: relative;
-  display: inline-block;
-  font-size: 1.5rem;
-  padding: 10px;
-  color: #f97316;
-  cursor: pointer;
-  transition: transform 0.2s ease-in-out;
-}
-
-.cart-icon:hover {
-  transform: scale(1.1);
-}
-
-.cart-icon .cart-count {
-  background-color: #f97316;
-  color: white;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 0.8rem;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
-/* --- Responsivité pour les icônes et les boutons --- */
-@media (max-width: 768px) {
-  .cart-icon {
-    font-size: 1.5rem;
-    padding: 8px;
-  }
-
-  .cart-icon .cart-count {
-    font-size: 0.7rem;
-    padding: 3px 6px;
-    min-width: 16px;
-    min-height: 16px;
-  }
-
-  .view-cart-btn {
-    font-size: 0.75rem;
-  }
-
-  .order-form input {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .cart-icon {
-    font-size: 1.2rem;
-    padding: 6px;
-  }
-
-  .cart-icon .cart-count {
-    font-size: 0.6rem;
-    padding: 3px 5px;
-  }
-
-  .view-cart-btn {
-    font-size: 0.75rem;
-  }
-}
-.tooltip {
-  position: fixed;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px;
-  background-color: #f97316;
-  color: white;
-  border-radius: 5px;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
-
-.tooltip.show {
-  visibility: visible;
-  opacity: 1;
-}
-
-.tooltip-error {
-  background-color: #f97316;
-  z-index: 1000;
-}
-
 }
