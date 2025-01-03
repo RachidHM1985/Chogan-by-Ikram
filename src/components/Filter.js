@@ -77,7 +77,7 @@ function Filter({
                 <option value="">Tous les genres</option>
                 <option value="Homme">Homme</option>
                 <option value="Femme">Femme</option>
-                <option value="Unisexe">Unisexe</option>
+                <option value="Unisex">Unisexe</option>
                 <option value="Luxe">Luxe</option>
               </select>
             </div>
