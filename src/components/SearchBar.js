@@ -39,7 +39,7 @@ const SearchBar = ({ setResults }) => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('http://localhost:5000/search', {
+        const response = await axios.get('api/search', {
           params: { query },
         });
 
