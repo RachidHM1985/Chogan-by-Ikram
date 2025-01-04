@@ -26,12 +26,22 @@ module.exports = async (req, res) => {
     // Gérer le parsing du JSON
     bodyParserMiddleware(req, res, async () => {
       if (req.method === 'GET') {
-        // Extraire le paramètre de recherche
-        const { query } = req.query;
+        // Extraire le paramètre de recherche et la pagination
+        let { query, page = 1, pageSize = 5 } = req.query;
+
+        // Valider et transformer les paramètres page et pageSize
+        page = Math.max(1, parseInt(page));  // Assurez-vous que page est un nombre valide
+        pageSize = Math.max(1, Math.min(100, parseInt(pageSize)));  // pageSize limité à 100 pour éviter les grosses requêtes
+
+        // Calculer l'offset pour la pagination
+        const offset = (page - 1) * pageSize;
 
         try {
           // Si la requête est vide, on récupère tous les parfums
-          let queryBuilder = supabase.from('parfums').select('*');
+          let queryBuilder = supabase
+            .from('parfums')
+            .select('*')
+            .range(offset, offset + pageSize - 1);
 
           // Si un query est fourni, effectuer la recherche
           if (query && query.trim() !== '') {
@@ -44,16 +54,19 @@ module.exports = async (req, res) => {
           const { data, error, count } = await queryBuilder;
 
           // Si erreur lors de la requête Supabase
-          if (error) throw error;
+          if (error) {
+            console.error('Erreur Supabase:', error.message);
+            return res.status(500).json({ error: error.message });
+          }
 
           // Retourner les résultats sous forme de JSON
           res.json({
             results: data,
             total: count,
-            totalPages: Math.ceil(count / 5),  // Supposons que 5 éléments par page
+            totalPages: Math.ceil(count / pageSize),  // Calculer les pages avec pageSize dynamique
           });
         } catch (error) {
-          console.error('Erreur lors de la récupération des données :', error);
+          console.error('Erreur lors de la récupération des données:', error);
           res.status(500).json({ error: 'Erreur interne du serveur' });
         }
       } else {

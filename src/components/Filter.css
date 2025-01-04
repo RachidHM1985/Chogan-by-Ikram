@@ -1,12 +1,12 @@
 /* Pour le bouton qui affiche les filtres */
 .toggle-filters-button {
-    padding: 10px 10px;
     background-color: #f97316;
     color: white;
+    padding: 7px 15px;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    width: auto; /* Assure que la taille du bouton est ajustée selon son contenu */
+    font-size: 15px; /* Assure que la taille du bouton est ajustée selon son contenu */
 }
 
 /* Lorsque le filtre est visible, on superpose l'overlay */

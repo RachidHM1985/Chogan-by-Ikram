@@ -14,7 +14,7 @@ function ProductGrid({
   const [currentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(12);
 
-  // Calculer dynamiquement le nombre d'éléments par page selon la taille de l'écran
+  // Dynamically adjust the number of items per page based on the screen width
   useEffect(() => {
     const updateItemsPerPage = () => {
       if (window.innerWidth < 768) {
@@ -51,17 +51,17 @@ function ProductGrid({
       return;
     }
 
-    // Ajout au panier
+    // Add to cart
     addToCart(product, selectedSize, price);
 
-    // Fermer la carte une fois l'ajout effectué
+    // Close the card after adding to the cart
     setFocusedCard(null);
   };
 
-  // Gestion de la fermeture du détail produit si on clique sur l'overlay
+  // Handle closing the product details view when clicking on the overlay
   const handleOverlayClick = (e) => {
     if (e.target.classList.contains('product-details-overlay')) {
-      setFocusedCard(null); // Ferme la vue détaillée
+      setFocusedCard(null); // Close the product details view
     }
   };
 
@@ -81,11 +81,12 @@ function ProductGrid({
             {currentPageData.map((product) =>
               product.id === focusedCard ? (
                 <div key={product.id} className="product-details-content">
-                  {/* Vérifiez si l'URL de l'image est valide */}
+                  {/* Dynamically generate the image URL */}
                   <img
-                    src={product.photo_url || 'default-image.jpg'}  // Si l'URL est vide ou invalide, utilisez une image par défaut
+                    src={`./photos/products/${product.genre.toLowerCase()}.png`}
                     alt={product.nom_produit}
                     className="product-details-image"
+                    onError={(e) => e.target.src = "/default-image.jpg"} // Fallback if image not found
                   />
                   <div className="product-details-info">
                     <p>Inspiré de</p>
@@ -167,19 +168,20 @@ function ProductGrid({
               className="product-card"
               onClick={() => handleCardClick(product.id)}
             >
-              {/* Vérifiez si l'URL de l'image est valide */}
+              {/* Dynamically generate the image URL */}
               <img
-                src={product.photo_url || "/default-image.jpg"} 
+                src={`./photos/products/${product.genre.toLowerCase()}.png`}
                 alt={product.nom_produit}
                 className="product-card-image"
-                onError={(e) => e.target.src = "/default-image.jpg"}  // Utiliser une image par défaut si l'URL est invalide
+                onError={(e) => e.target.src = "/default-image.jpg"}  // Fallback if image not found
                 />
 
               <div className="product-card-content">
                 <p>Inspiré de</p>
                 <h1><strong>{product.nom_produit}</strong></h1>
                 <h2><strong>{product.nom_marque}</strong></h2>
-                À partir de {getPrice(product)}€</div>
+                À partir de {getPrice(product)}€
+              </div>
             </div>
           ))}
         </div>

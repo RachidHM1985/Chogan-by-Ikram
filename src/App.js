@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import DynamicBackground from './components/DynamicBackground.js';
-import SearchParfums from './components/SearchParfums.js'; // Importez le nouveau composant
+import SearchParfums from './components/SearchParfums.js';
 import './App.css';
 import './index.css';
 

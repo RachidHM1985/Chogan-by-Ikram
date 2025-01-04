@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo} from 'react';
 import ReactPaginate from 'react-paginate';
 import './SearchParfums.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,50 +24,22 @@ function SearchParfums() {
   const [selectedSizes, setSelectedSizes] = useState({});
   const [genreFilter, setGenreFilter] = useState('');
   const [prixFilter, setPrixFilter] = useState('');
-  const [marqueFilter, setMarqueFilter] = useState('');
+  const [marqueFilter,setMarqueFilter] = useState('');
   const [sortOption, setSortOption] = useState('');
-  const itemsPerPage = 12;
+  const [itemsPerPage] = useState(12);
   const cartRef = useRef();
   const [errorMessage,setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const [brandFilter, setBrandFilter] = useState('');
 
 
-  const formFields = [
-    {
-      name: 'name',
-      label: 'Nom',
-      type: 'text',
-      required: true,
-      validation: (value) => value !== '',
-      errorMessage: 'Veuillez entrer votre nom.',
-    },
-    {
-      name: 'prenom',
-      label: 'Prénom',
-      type: 'text',
-      required: true,
-      validation: (value) => value !== '',
-      errorMessage: 'Veuillez entrer votre prénom.',
-    },
-    {
-      name: 'phone',
-      label: 'Téléphone',
-      type: 'tel',
-      required: true,
-      validation: (value) => /^\+?[0-9]\d{1,14}$/.test(value),
-      errorMessage: 'Numéro de téléphone invalide.',
-    },
-    {
-      name: 'email',
-      label: 'Email',
-      type: 'email',
-      required: true,
-      validation: (value) => /\S+@\S+\.\S+/.test(value),
-      errorMessage: 'Email invalide.',
-    },
-  ];
+  const formFields = useMemo(() => [
+    { name: 'name', label: 'Nom', type: 'text', required: true, validation: (value) => value !== '', errorMessage: 'Veuillez entrer votre nom.' },
+    { name: 'prenom', label: 'Prénom', type: 'text', required: true, validation: (value) => value !== '', errorMessage: 'Veuillez entrer votre prénom.' },
+    { name: 'phone', label: 'Téléphone', type: 'tel', required: true, validation: (value) => /^\+?[0-9]\d{1,14}$/.test(value), errorMessage: 'Numéro de téléphone invalide.' },
+    { name: 'email', label: 'Email', type: 'email', required: true, validation: (value) => /\S+@\S+\.\S+/.test(value), errorMessage: 'Email invalide.' },
+  ], []);
 
-  
   // Filtered and sorted results
   const offset = currentPage * itemsPerPage;
   const handlePageClick = (data) => {
@@ -172,7 +144,8 @@ function SearchParfums() {
       return field.validation(value);
     });
     setIsFormValid(isValid);
-  }, [form]);
+  }, [form, formFields]);  // Add formFields to dependencies
+  
 
   // Soumettre le formulaire
    const handleSubmit = async (e) => {
@@ -234,11 +207,13 @@ function SearchParfums() {
         </button>
         <Filter
           genreFilter={genreFilter}
+          setMarqueFilter={setMarqueFilter} // Vérifiez que cette fonction est correctement définie
           setGenreFilter={setGenreFilter}
           prixFilter={prixFilter}
           setprixFilter={setPrixFilter}
           sortOption={sortOption}
           setSortOption={setSortOption}
+          setResults={setResults}
         />
           <SearchBar setResults={setResults} />        
         <div className="cart-icon" onClick={handleCheckout}>
