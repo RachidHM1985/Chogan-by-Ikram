@@ -18,13 +18,13 @@ module.exports = async (req, res) => {
     to: email,
     from: 'ikram.bakmou@outlook.fr',  // Utilisez un email validé dans SendGrid
     subject: 'Confirmation de votre commande Chogan',
-    text: `Bonjour ${prenom} ${name},\n\nMerci pour votre commande ! Voici les détails :\n\n${cart.map(item => `${item.nom_produit} - ${item.size} - ${item.price}€ x ${item.quantity}`).join('\n')}\n\nTotal : ${total}€.\n\nNous allons traiter votre commande et nous reviendrons vers vous pour vous indiquer les modalités de paiement et de livraison.\n\nCordialement,\n\nIkram B.`,
+    text: `Bonjour ${prenom} ${name},\n\nMerci pour votre commande ! Voici les détails :\n\n${cart.map(item => `${item.nom_produit} - ${item.size} - ${item.prix}€ x ${item.quantity}`).join('\n')}\n\nTotal : ${total}€.\n\nNous allons traiter votre commande et nous reviendrons vers vous pour vous indiquer les modalités de paiement et de livraison.\n\nCordialement,\n\nIkram B.`,
     html: `
       <h1>Confirmation de votre commande</h1>
       <p>Bonjour ${prenom} ${name},</p>
       <p>Merci pour votre commande ! Voici les détails :</p>
       <ul>
-        ${cart.map(item => `<li>${item.nom_produit} - ${item.size} - ${item.price}€ x ${item.quantity}</li>`).join('')}
+        ${cart.map(item => `<li>${item.nom_produit} - ${item.size} - ${item.prix}€ x ${item.quantity}</li>`).join('')}
       </ul>
       <p><strong>Total : ${total}€</strong></p>
       <p>Nous vous confirmons que nous avons enregistré votre commande et que nous allons la traiter.<br>Prochainement, nous allons vous contacter pour vous indiquer les modalités de paiement et de livraison.</p>
@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
     to: 'ikram.bakmou@outlook.fr',  // L'email de l'administrateur
     from: 'hachem.rach@gmail.com',
     subject: `Nouvelle commande de ${prenom} ${name}`,
-    text: `Nouvelle commande reçue :\n\nNom: ${prenom} ${name}\nTéléphone: ${req.body.phone}\nEmail: ${email}\n\nDétails de la commande:\n${cart.map(item => `${item.code} - ${item.nom_produit} - ${item.size} - ${item.price}€ x ${item.quantity}`).join('\n')}\n\nTotal : ${total}€.\n\nMerci de traiter cette commande.`,
+    text: `Nouvelle commande reçue :\n\nNom: ${prenom} ${name}\nTéléphone: ${req.body.phone}\nEmail: ${email}\n\nDétails de la commande:\n${cart.map(item => `${item.code} - ${item.nom_produit} - ${item.size} - ${item.prix}€ x ${item.quantity}`).join('\n')}\n\nTotal : ${total}€.\n\nMerci de traiter cette commande.`,
   };
 
   try {
