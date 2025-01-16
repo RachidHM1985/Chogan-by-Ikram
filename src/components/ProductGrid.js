@@ -92,6 +92,7 @@ function ProductGrid({
                     <p>Inspiré de</p>
                     <h2>{product.nom_produit}</h2>
                     <h2>{product.nom_marque}</h2>
+                    <p>Réf: {product.code}</p>
                     <p>Choisissez une contenance :</p>
                     <div className="size-selection">                     
                       {product.prix_30ml && (
@@ -180,6 +181,7 @@ function ProductGrid({
                 <p>Inspiré de</p>
                 <h1><strong>{product.nom_produit}</strong></h1>
                 <h2><strong>{product.nom_marque}</strong></h2>
+                <p>Réf: {product.code}</p>
                 À partir de {getPrice(product)}€
               </div>
             </div>
